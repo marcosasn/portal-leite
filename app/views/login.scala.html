@@ -1,3 +1,5 @@
+@(form: Form[Application.Login])
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,6 +23,7 @@
       <hr>
       <div class="tab-content">
         <div id="login" class="tab-pane active">
+        @helper.form(routes.Application.authenticate) {
           <form action="index.html">
             <p class="text-muted text-center">
               Digite seu login e senha
@@ -29,6 +32,11 @@
             <input type="password" placeholder="Senha" class="form-control bottom">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
           </form>
+          @if(form.hasGlobalErrors) {
+            <p class="error">
+            @form.globalError.message
+            </p>
+          }
         </div>
         <div id="signup" class="tab-pane">
           <form action="index.html">
@@ -37,6 +45,7 @@
             <input type="password" placeholder="Senha" class="form-control bottom">
             <button class="btn btn-lg btn-success btn-block" type="submit">Cadastrar</button>
           </form>
+          }
         </div>
       </div>
       <hr>
