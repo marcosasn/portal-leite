@@ -17,4 +17,11 @@ public class Application extends Controller {
         return ok(login.render());
     }
 
+    public static class Login {
+
+        public String nome;
+        public String login;
+        public String senha;
+
+    }
 }
