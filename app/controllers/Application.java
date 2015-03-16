@@ -62,9 +62,9 @@ public class Application extends Controller {
             session().clear();
             session("login", user.getLogin());
 
-            List<Usuario> usuarioCorrente = DAO.findByAttributeName("Usuario", "login", session("login"));
+            Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
 
-            return ok(index.render(usuarioCorrente.get(0)));
+            return ok(index.render(usuarioCorrente));
         }
     }
 
@@ -102,15 +102,14 @@ public class Application extends Controller {
 
     @Transactional
     private static boolean checaSenha(String loginUser, String senha) {
-        List<Usuario> usuarioALogar = DAO.findByAttributeName("Usuario", "login", loginUser);
-        return usuarioALogar.get(0).checaSenha(senha);
+        Usuario usuarioALogar = (Usuario) DAO.findByAttributeName("Usuario", "login", loginUser).get(0);
+        return usuarioALogar.checaSenha(senha);
     }
 
     private static boolean verificaDadosVaziosLogin(String login, String senha) {
         if(login == null || senha == null || login == "" || senha == "") {
             return true;
         }
-
         return false;
     }
 
@@ -118,7 +117,6 @@ public class Application extends Controller {
         if(nome == null || login == null || senha == null || nome == "" || login == "" || senha == "") {
             return true;
         }
-
         return false;
     }
 }
