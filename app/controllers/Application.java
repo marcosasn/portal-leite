@@ -60,10 +60,9 @@ public class Application extends Controller {
         } else {
             Usuario user = (Usuario) DAO.findByAttributeName("Usuario", "login", loginUser).get(0);
             session().clear();
-            session("Login", user.getLogin());
-            session("Nome", user.getNome());
+            session("login", user.getLogin());
 
-            List<Usuario> usuarioCorrente = DAO.findByAttributeName("Usuario", "login", session("Login"));
+            List<Usuario> usuarioCorrente = DAO.findByAttributeName("Usuario", "login", session("login"));
 
             return ok(index.render(usuarioCorrente.get(0)));
         }
