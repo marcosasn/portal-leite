@@ -1,4 +1,4 @@
-@(form: Form[Application.Login])
+@(mensagem: String)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,35 +19,42 @@
     <div class="form-signin">
       <div class="text-center">
         <img src="@routes.Assets.at("images/portal.gif")" >
+        <p>
+        @mensagem
+        </p>
       </div>
       <hr>
+
+
       <div class="tab-content">
         <div id="login" class="tab-pane active">
-        @helper.form(routes.Application.authenticate) {
-          <form action="index.html">
+
+
+          <form action="@routes.Application.logar()" method="post">
             <p class="text-muted text-center">
               Digite seu login e senha
             </p>
-            <input type="text" placeholder="Nome" class="form-control top">
-            <input type="password" placeholder="Senha" class="form-control bottom">
+            <input type="text" placeholder="Login" class="form-control top" name="login" id="login">
+            <input type="password" placeholder="Senha" class="form-control bottom" name="senha" id="senha">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
           </form>
-          @if(form.hasGlobalErrors) {
-            <p class="error">
-            @form.globalError.message
-            </p>
-          }
+
+
         </div>
         <div id="signup" class="tab-pane">
-          <form action="index.html">
-            <input type="text" placeholder="Nome" class="form-control top">
-            <input type="password" placeholder="Login" class="form-control middle">
-            <input type="password" placeholder="Senha" class="form-control bottom">
+          <form id="formulario" action="@routes.Application.registrar()" method="post">
+            <p class="text-muted text-center">
+              Preencha todos os campos
+            </p>
+            <input type="text" placeholder="Nome" class="form-control top" name="nome" id="nome">
+            <input type="text" placeholder="Login" class="form-control middle" name="login" id="login">
+            <input type="password" placeholder="Senha" class="form-control bottom" name="senha" id="senha">
             <button class="btn btn-lg btn-success btn-block" type="submit">Cadastrar</button>
           </form>
-          }
         </div>
       </div>
+
+
       <hr>
       <div class="text-center">
         <ul class="list-inline">

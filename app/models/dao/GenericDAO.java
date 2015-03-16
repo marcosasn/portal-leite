@@ -1,4 +1,4 @@
-package models.bd;
+package models.dao;
 
 import play.db.jpa.JPA;
 

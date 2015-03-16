@@ -1,4 +1,4 @@
-import models.bd.GenericDAO;
+import models.dao.GenericDAO;
 import play.*;
 import play.db.jpa.JPA;
 
