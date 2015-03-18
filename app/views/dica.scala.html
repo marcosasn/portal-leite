@@ -158,19 +158,27 @@
                             <div class="col-lg-12">
                                 <div class="box">
                                     <header>
-                                        <h5>Dica: nome da dica</h5>
+                                        <h5>Dica: @dica.getTitulo</h5>
                                         <div class="toolbar">
-                                            <button class="btn btn-xs btn-primary">Autor: nome do autor</button>
+                                            <button class="btn btn-xs btn-primary">Autor: @dica.getAutor().getNome()</button>
                                         </div>
                                     </header>
                                     <div class="body">
                                         <pre class="prettyprint linenums">
-                                                <p>Categoria:</p>
-                                                <p>Assunto:</p>
-                                                <p>Nome:</p>
-                                            <p>Razão:</p>
-                                            <p>URL: http://nomeurl/dominiourl</p>
-                                            <p>Conselho:</p>
+                                                <p>Categoria: @dica.getCategoria </p>
+                                            @if(dica.getTipo() == "models.DicaComoNaoTerDificuldade") {
+                                                <p>Assunto: @dica.asInstanceOf[DicaComoNaoTerDificuldade].getNomeAssunto() p>
+                                            }
+                                            @if(dica.getTipo() == "models.DicaDisciplinasAnteriores") {
+                                                <p>Nome: @dica.asInstanceOf[DicaDisciplinasAnteriores].getNomesDisciplinas()</p>
+                                                <p>Razão: @dica.asInstanceOf[DicaDisciplinasAnteriores].getRazoesDisciplinas()</p>
+                                            }
+                                            @if(dica.getTipo() == "models.DicaMaterialUtil") {
+                                                <p>URL: http://@dica.asInstanceOf[DicaMaterialUtil].getNomeURL()/@dica.asInstanceOf[DicaMaterialUtil].getDominioURL()</p>
+                                            }
+                                            @if(dica.getTipo() == "models.DicaConselho") {
+                                                <p>Conselho: @dica.asInstanceOf[DicaConselho].getConselho()</p>
+                                            }
                                         </pre>
                                     </div>
                                 </div>

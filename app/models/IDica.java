@@ -50,6 +50,8 @@ public abstract class IDica {
 	public long getId() {
 		return id;
 	}
+
+	public void setId(long id) { this.id = id; }
 	
 	public String getTitulo() {
 		return titulo;
@@ -74,6 +76,10 @@ public abstract class IDica {
 	public StatusAberturaParaVotos getStatusAberturaParaVotos() {
 		return statusAberturaParaVotos;
 	}
+
+	public abstract String getTipo();
+
+	public abstract String getCategoria();
 
 	public List<Concordancia> getListaConcordancia() {
 		return listaConcordancia;

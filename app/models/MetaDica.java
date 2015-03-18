@@ -14,6 +14,16 @@ public class MetaDica extends IDica {
 
 	public MetaDica() {}
 
+	@Override
+	public String getTipo() {
+		return MetaDica.class.getName();
+	}
+
+	@Override
+	public String getCategoria() {
+		return "Meta Dica";
+	}
+
 	public MetaDica(String titulo, Usuario autor, String comentario) {
 		super(titulo, autor);
 		setComentario(comentario);
