@@ -3,7 +3,9 @@ package models;
 public class DicaMaterialUtil extends DicaSimples {
 	private String nomeURL;
 	private String dominioURL;
-	
+
+	public DicaMaterialUtil() {}
+
 	public DicaMaterialUtil(String titulo, Usuario autor, String nomeURL, String dominioURL) {
 		super(titulo, autor);
 		setNomeURL(nomeURL);

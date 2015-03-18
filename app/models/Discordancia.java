@@ -1,8 +1,14 @@
 package models;
 
+import javax.persistence.*;
+
+@Entity
 public class Discordancia extends Voto {
+	@Column
 	private String razaoDiscordancia;
-	
+
+	public Discordancia() {}
+
 	public Discordancia(Usuario autor, String razaoDiscordancia) throws Exception {
 		setAutor(autor);
 		setRazaoDiscordancia(razaoDiscordancia);

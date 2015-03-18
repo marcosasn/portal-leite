@@ -1,20 +1,43 @@
 package models;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Entity
 public abstract class IDica {
+	@Id
+	@GeneratedValue
 	private int id;
+
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn
 	private Set<Usuario> listaUsuariosQueVotaram = new HashSet<Usuario>();
+
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn
 	private List<Concordancia> listaConcordancia = new ArrayList<Concordancia>();
+
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn
 	private List<Discordancia> listaDiscordancia = new ArrayList<Discordancia>();
+
+	@Column
 	private String titulo;
+
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn
 	private Usuario autor;
+
+	@Column
 	private StatusVisualizacao statusVisualizacao;
+	@Column
 	private StatusAberturaParaVotos statusAberturaParaVotos;
-	
+
+	public IDica() {}
+
 	public IDica(String titulo, Usuario autor) {
 		setTitulo(titulo);
 		setAutor(autor);
