@@ -28,6 +28,14 @@ public class Application extends Controller {
         return ok(index.render(usuarioCorrente));
     }
 
+    @Transactional
+    @Security.Authenticated(Secured.class)
+    public static Result dica() {
+        Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", request().username()).get(0);
+
+        return ok(dica.render(usuarioCorrente));
+    }
+
     public static Result login() {
         return ok(
                 login.render("Seja bem-vindo ao Portal do Leite")
@@ -64,7 +72,7 @@ public class Application extends Controller {
 
             Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
 
-            return ok(index.render(usuarioCorrente));
+            return redirect(routes.Application.index());
         }
     }
 
