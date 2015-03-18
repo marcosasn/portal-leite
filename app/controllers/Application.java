@@ -1,5 +1,6 @@
 package controllers;
 
+import models.IDica;
 import models.Usuario;
 import play.*;
 import play.data.Form;
@@ -30,10 +31,11 @@ public class Application extends Controller {
 
     @Transactional
     @Security.Authenticated(Secured.class)
-    public static Result dica() {
+    public static Result dica(long id) {
         Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", request().username()).get(0);
+        IDica dicaAtual = DAO.findByEntityId(IDica.class, id);
 
-        return ok(dica.render(usuarioCorrente));
+        return ok(dica.render(usuarioCorrente, dicaAtual));
     }
 
     public static Result login() {

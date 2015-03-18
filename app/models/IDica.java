@@ -10,7 +10,7 @@ import java.util.Set;
 public abstract class IDica {
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn
@@ -47,7 +47,7 @@ public abstract class IDica {
 	
 	public static enum StatusAberturaParaVotos { ABERTO, FECHADO }
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	

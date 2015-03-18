@@ -1,7 +1,12 @@
 package models;
 
+import javax.persistence.*;
+
+@Entity
 public class DicaMaterialUtil extends DicaSimples {
+	@Column
 	private String nomeURL;
+	@Column
 	private String dominioURL;
 
 	public DicaMaterialUtil() {}
