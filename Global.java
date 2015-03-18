@@ -2,13 +2,13 @@ import play.*;
 import models.dao.GenericDAO;
 import play.GlobalSettings;
 import play.db.jpa.JPA;
-import models.SI1;
+//import models.SI1;
 import models.Tema;
 
 public class Global extends GlobalSettings {
 
 	private static GenericDAO dao = new GenericDAO();
-
+/*
 	@Override
 	public void onStart(Application app) {
 		Logger.info("Aplicação inicializada...");
@@ -26,4 +26,5 @@ public class Global extends GlobalSettings {
 				dao.persist(si1);
 			}});
 	}
+	*/
 }
