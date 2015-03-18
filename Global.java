@@ -24,7 +24,7 @@ public class Global extends GlobalSettings {
 			public void invoke() throws Throwable {
 				Usuario user1 = new Usuario("eu", "eu", "eu");
 				dao.persist(user1);
-
+/*
 				DicaComoNaoTerDificuldade dica1 = new DicaComoNaoTerDificuldade("Esse é o titulo", user1, "Não tenha dificuldades :)");
 				dao.persist(dica1);
 
@@ -36,7 +36,7 @@ public class Global extends GlobalSettings {
 
 				DicaMaterialUtil dica4 = new DicaMaterialUtil("Site legal", user1, "heroku", ".com");
 				dao.persist(dica4);
-
+*/
 				dao.flush();
 			}
 		});
