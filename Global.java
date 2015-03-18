@@ -26,16 +26,16 @@ public class Global extends GlobalSettings {
 				dao.persist(user1);
 
 				DicaComoNaoTerDificuldade dica1 = new DicaComoNaoTerDificuldade("Esse é o titulo", user1, "Não tenha dificuldades :)");
-				dao.merge(dica1);
+				dao.persist(dica1);
 
 				DicaConselho dica2 = new DicaConselho("Título de conselho", user1, "Consselhos são bons!");
-				dao.merge(dica2);
+				dao.persist(dica2);
 
 				DicaDisciplinasAnteriores dica3 = new DicaDisciplinasAnteriores("Meu titulo", user1, "Si1, BD1", "Essas são disciplinas anteriores interessantes");
-				dao.merge(dica3);
+				dao.persist(dica3);
 
 				DicaMaterialUtil dica4 = new DicaMaterialUtil("Site legal", user1, "heroku", ".com");
-				dao.merge(dica4);
+				dao.persist(dica4);
 
 				dao.flush();
 			}
