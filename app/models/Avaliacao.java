@@ -7,8 +7,8 @@ import models.Usuario;
 /**
  * Created by Win7 on 3/19/2015.
  */
-@Entity(name="Avaliacao")
-@Transactional
+/*@Entity(name="Avaliacao")
+@Transactional*/
 public class Avaliacao {
 
     @Id
