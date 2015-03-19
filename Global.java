@@ -32,7 +32,7 @@ public class Global extends GlobalSettings {
 				Usuario user2 = new Usuario("debugar", "debugar", "debugar");
 				dao.persist(user2);
 				*/
-				
+
 				DicaComoNaoTerDificuldade dica1 = new DicaComoNaoTerDificuldade("Esse é o titulo", user1, "Não tenha dificuldades :)");
 				dao.persist(dica1);
 
