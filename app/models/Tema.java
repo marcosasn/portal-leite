@@ -20,13 +20,13 @@ public class Tema {
     @Column
     private String nome;
 
-    /*@OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
-    List<IDica> dicas;*/
+    List<IDica> dicas;
 
-    /*@OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
-    List<Avaliacao> avaliacoes;*/
+    List<Avaliacao> avaliacoes;
 
     public Tema(String nome) {
         this.nome = nome;

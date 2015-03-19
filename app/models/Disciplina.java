@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Entity(name="Disciplina")
 @Transactional
-public abstract class Disciplina {
+public class Disciplina {
     @Id
     @GeneratedValue
     private Long idDisciplina;
@@ -20,6 +20,13 @@ public abstract class Disciplina {
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
     List<Tema> temas = new ArrayList<Tema>();
+
+    @Column
+    private String nome;
+
+    public Disciplina(String nome){
+        this.nome = nome;
+    }
 
     public Disciplina(){}
 
@@ -29,6 +36,14 @@ public abstract class Disciplina {
 
     public void setId(Long id) {
         this.idDisciplina = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Tema addTema(Tema tema) {

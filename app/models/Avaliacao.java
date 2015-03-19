@@ -18,10 +18,14 @@ public class Avaliacao {
     @Column
     private int nota;
 
-    /*
-    @OneToOne(MappedBy = "")
+    @OneToOne
+    @JoinColumn
     private Usuario autor;
-    */
+
+    public Avaliacao(Usuario autor, int nota) {
+        this.autor = autor;
+        this.nota = nota;
+    }
 
     public Avaliacao() {}
 
@@ -31,5 +35,21 @@ public class Avaliacao {
 
     public void setId(Long id) {
         idAvaliacao = id;
+    }
+
+    public int getNota() {
+        return nota;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
+    }
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Usuario autor) {
+        this.autor = autor;
     }
 }
