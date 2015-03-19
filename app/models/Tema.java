@@ -3,7 +3,6 @@ package models;
 import play.db.jpa.Transactional;
 import javax.persistence.*;
 import models.Disciplina;
-import models.SI1;
 import models.IDica;
 
 import java.util.List;
@@ -24,6 +23,10 @@ public class Tema {
     /*@OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
     List<IDica> dicas;*/
+
+    /*@OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn
+    List<Avaliacao> avaliacoes;*/
 
     public Tema(String nome) {
         this.nome = nome;
