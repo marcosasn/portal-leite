@@ -41,4 +41,8 @@ public class Tema {
     public void setId(Long id) {
         this.idTema = id;
     }
+
+    public String getNome() {
+        return nome;
+    }
 }

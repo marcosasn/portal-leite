@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Disciplina;
 import models.IDica;
 import models.Usuario;
 import play.*;
@@ -25,8 +26,8 @@ public class Application extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result index() {
         Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", request().username()).get(0);
-
-        return ok(index.render(usuarioCorrente));
+        List<Disciplina> disciplinas = DAO.findAllByClassName(Disciplina.class.getName());
+        return ok(index.render(usuarioCorrente, disciplinas));
     }
 
     @Transactional

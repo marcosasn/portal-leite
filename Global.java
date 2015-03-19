@@ -3,6 +3,7 @@ import models.DicaComoNaoTerDificuldade;
 import models.DicaConselho;
 import models.DicaDisciplinasAnteriores;
 import models.DicaMaterialUtil;
+import models.Disciplina;
 import models.IDica;
 import models.Usuario;
 import models.dao.GenericDAO;
@@ -25,15 +26,23 @@ public class Global extends GlobalSettings {
 
 			@Override
 			public void invoke() throws Throwable {
+                Usuario user1 = new Usuario("eu", "eu", "eu");
+                dao.persist(user1);
 
-				List<Usuario> usuarios = dao.findAllByClassName(Usuario.class.getName());
-				Usuario user1 = new Usuario("eu", "eu", "eu");
+                String[] nomes = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS", "HTML+CSS+Bootstrap",
+                        "Heroku", "Labs", "Minitestes", "Projeto"};
+                Disciplina si1 = new Disciplina("Sistemas da Informação I");
+                for (String nome: nomes) {
+                    si1.addTema(new Tema(nome));
+                }
+                dao.persist(si1);
 
-				for(Usuario user: usuarios) {
-					if (user.equals(user)) {
-						dao.persist(user1);
+                //List<Usuario> usuarios = dao.findAllByClassName(Usuario.class.getName());
+				/*for(Usuario user: usuarios) {
+					if (user1.equals(user)) {
+						dao.persist(user);
 					}
-				}
+				}*/
 
 				/*
 				Usuario user2 = new Usuario("debugar", "debugar", "debugar");

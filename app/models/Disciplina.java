@@ -53,4 +53,8 @@ public class Disciplina {
         }
         return null;
     }
+
+    public List<Tema> getTemas() {
+        return temas;
+    }
 }
