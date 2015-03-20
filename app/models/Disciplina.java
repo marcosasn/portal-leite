@@ -11,7 +11,6 @@ import java.util.List;
  * Created by marcosasn on 17/03/15.
  */
 @Entity(name="Disciplina")
-@Transactional
 public class Disciplina {
     @Id
     @GeneratedValue

@@ -11,7 +11,6 @@ import java.util.List;
  * Created by marcosasn on 17/03/15.
  */
 @Entity(name="Tema")
-@Transactional
 public class Tema {
     @Id
     @GeneratedValue
@@ -19,9 +18,6 @@ public class Tema {
 
     @Column
     private String nome;
-
-    @ManyToOne
-    private Disciplina disciplina;
 
     //@OneToMany(cascade=CascadeType.ALL)
     //@JoinColumn
