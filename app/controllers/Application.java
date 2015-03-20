@@ -41,8 +41,9 @@ public class Application extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result tema() {
         Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", request().username()).get(0);
+        List<IDica> listaDicas = DAO.findAllByClassName("IDica");
 
-        return ok(tema.render(usuarioCorrente, ""));
+        return ok(tema.render(usuarioCorrente, "", listaDicas));
     }
 
     public static Result login() {
@@ -88,6 +89,7 @@ public class Application extends Controller {
     @Transactional
     public static Result postarDica() {
         Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
+        List<IDica> listaDicas = DAO.findAllByClassName("IDica");
 
         DynamicForm requestData = Form.form().bindFromRequest();
 
@@ -106,18 +108,18 @@ public class Application extends Controller {
 
 
         if (requestData.hasErrors()) {
-            return ok(tema.render(usuarioCorrente, "O formulário contém erros."));
+            return ok(tema.render(usuarioCorrente, "O formulário contém erros.", listaDicas));
         }
         if(vazio(titulo)) {
-            return ok(tema.render(usuarioCorrente, "Digite um título para sua dica."));
+            return ok(tema.render(usuarioCorrente, "Digite um título para sua dica.", listaDicas));
         }
         if (!algumCampoCategoriaPreenchido(assuntos, conselho, disciplinasanteriores, razoes, endereco)) {
-            return ok(tema.render(usuarioCorrente, "Escolha uma categoria e preencha o que se pede."));
+            return ok(tema.render(usuarioCorrente, "Escolha uma categoria e preencha o que se pede.", listaDicas));
         }
 
         if(!vazio(disciplinasanteriores) || !vazio(razoes)) {
             if(vazio(disciplinasanteriores) || vazio(razoes)) {
-                return ok(tema.render(usuarioCorrente, "Ao escolher essa categoria, preencha tudo que se pede."));
+                return ok(tema.render(usuarioCorrente, "Ao escolher essa categoria, preencha tudo que se pede.", listaDicas));
             }
         }
 
@@ -127,31 +129,31 @@ public class Application extends Controller {
             DicaComoNaoTerDificuldade dicaComoNaoTerDificuldadeForm = new DicaComoNaoTerDificuldade(titulo, autor, assuntos);
             DAO.persist(dicaComoNaoTerDificuldadeForm);
 
-            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Não ter dificuldade' criada com sucesso"));
+            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Não ter dificuldade' criada com sucesso", listaDicas));
         }
 
         if(!vazio(conselho)) {
             DicaConselho dicaConselhoForm = new DicaConselho(titulo, autor, conselho);
             DAO.persist(dicaConselhoForm);
 
-            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Conselho' criada com sucesso"));
+            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Conselho' criada com sucesso", listaDicas));
         }
 
         if(!vazio(disciplinasanteriores) && !vazio(razoes)) {
             DicaDisciplinasAnteriores dicaDisciplinasAnterioresForm = new DicaDisciplinasAnteriores(titulo, autor, disciplinasanteriores, razoes);
             DAO.persist(dicaDisciplinasAnterioresForm);
 
-            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Disciplinas Anteriores' criada com sucesso"));
+            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Disciplinas Anteriores' criada com sucesso", listaDicas));
         }
 
         if(!vazio(endereco)) {
             DicaMaterialUtil dicaMaterialUtilForm = new DicaMaterialUtil(titulo, autor, endereco, dominio);
             DAO.persist(dicaMaterialUtilForm);
 
-            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Material útil' criada com sucesso"));
+            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Material útil' criada com sucesso", listaDicas));
         }
 
-        return ok(tema.render(usuarioCorrente, "Erro: processamento do formulario chegou ao fim e não houve resultados."));
+        return ok(tema.render(usuarioCorrente, "Erro: processamento do formulario chegou ao fim e não houve resultados.", listaDicas));
 
     }
 

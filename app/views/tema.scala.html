@@ -1,4 +1,4 @@
-@(usuario: Usuario, mensagem: String)
+@(usuario: Usuario, mensagem: String, listaDicas: List[IDica])
 
 <!doctype html>
 <html class="no-js">
@@ -158,6 +158,11 @@
                             <h2 id="building">Criar uma dica</h2>
                             @if(mensagem != "") {
                                 <div class="alert alert-info" role="alert">@mensagem</div>
+                            }
+
+                            Lista de dicas no sistema:<br>
+                            @for(diq <- listaDicas) {
+                                <a href="dica?id=@diq.getId()">@diq.getTitulo()</a><br>
                             }
 
                             <!--BEGIN INPUT TEXT FIELDS-->
