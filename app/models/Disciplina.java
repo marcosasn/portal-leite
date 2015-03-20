@@ -19,7 +19,7 @@ public class Disciplina {
 
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
-    List<Tema> temas = new ArrayList<Tema>();
+    private List<Tema> temas = new ArrayList<Tema>();
 
     @Column
     private String nome;

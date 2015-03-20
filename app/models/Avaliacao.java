@@ -10,16 +10,15 @@ import models.Usuario;
 /*@Entity(name="Avaliacao")
 @Transactional*/
 public class Avaliacao {
-
-    @Id
-    @GeneratedValue
+    /*@Id
+    @GeneratedValue*/
     private Long idAvaliacao;
 
-    @Column
+    //@Column
     private int nota;
 
-    @OneToOne
-    @JoinColumn
+    /*@OneToOne
+    @JoinColumn*/
     private Usuario autor;
 
     public Avaliacao(Usuario autor, int nota) {

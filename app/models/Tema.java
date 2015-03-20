@@ -20,9 +20,9 @@ public class Tema {
     @Column
     private String nome;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn
-    List<IDica> dicas;
+    //@OneToMany(cascade=CascadeType.ALL)
+    //@JoinColumn
+    //private List<IDica> dicas;
 
     /*@OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
