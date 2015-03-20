@@ -5,6 +5,7 @@ import models.DicaDisciplinasAnteriores;
 import models.DicaMaterialUtil;
 import models.Disciplina;
 import models.IDica;
+import models.Tema;
 import models.Usuario;
 import models.dao.GenericDAO;
 import play.Application;
@@ -13,6 +14,7 @@ import play.Logger;
 import play.db.jpa.JPA;
 
 import java.lang.Override;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Global extends GlobalSettings {
@@ -32,8 +34,12 @@ public class Global extends GlobalSettings {
                 String[] nomes = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS", "HTML+CSS+Bootstrap",
                         "Heroku", "Labs", "Minitestes", "Projeto"};
                 Disciplina si1 = new Disciplina("Sistemas da Informação I");
+                Tema tema;
+
                 for (String nome: nomes) {
-                    si1.addTema(new Tema(nome));
+                    tema = new Tema(nome);
+                    si1.addTema(tema);
+                    dao.persist(tema);
                 }
                 dao.persist(si1);
 
