@@ -1,10 +1,9 @@
 package models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.*;
 
 @Entity
 public abstract class IDica {
@@ -82,15 +81,16 @@ public abstract class IDica {
 	public abstract String getCategoria();
 
 	public List<Concordancia> getListaConcordancia() {
-		return listaConcordancia;
+		return  listaConcordancia;
 	}
 	
 	public List<Discordancia> getListaDiscordancia() {
-		return listaDiscordancia;
-	}
-	
-	public Set<Usuario> getListaUsuariosQueVotaram() {
-		return listaUsuariosQueVotaram;
+		List<Discordancia> listaInvertida = new ArrayList<Discordancia>();
+		for(Discordancia disc: listaDiscordancia) {
+			listaInvertida.add(disc);
+		}
+		Collections.reverse(listaInvertida);
+		return listaInvertida;
 	}
 
 	public void adicionaConcordancia(Concordancia concordancia) throws Exception {
@@ -98,23 +98,42 @@ public abstract class IDica {
 			throw new Exception();
 		}
 		else {
-			getListaConcordancia().add(concordancia);
-			getListaUsuariosQueVotaram().add(concordancia.getAutor());
+			listaConcordancia.add(concordancia);
 		}
 	}
 
 	public void adicionaDiscordancia(Discordancia discordancia) throws Exception {
+
 		if (getListaUsuariosQueVotaram().contains(discordancia.getAutor())) {
 			throw new Exception();
 		}
 		else {
-			getListaDiscordancia().add(discordancia);
-			getListaUsuariosQueVotaram().add(discordancia.getAutor());
+			listaDiscordancia.add(discordancia);
 		}
+	}
+
+	public Set<Usuario> getListaUsuariosQueVotaram() {
+		Set<Usuario> listaUsuariosQueVotaram = new HashSet<Usuario>();
+
+		for(Concordancia conc: getListaConcordancia()) {
+			listaUsuariosQueVotaram.add(conc.getAutor());
+		}
+		for(Discordancia dconc: getListaDiscordancia()) {
+			listaUsuariosQueVotaram.add(dconc.getAutor());
+		}
+		return listaUsuariosQueVotaram;
+	}
+
+
+	public boolean usuarioAtualVotouNestaDica(Usuario usuario) {
+		if((getListaUsuariosQueVotaram().contains(usuario))) {
+			return true;
+		}
+		return false;
 	}
 	
     public int getNumeroVotos() {
-    	return getListaConcordancia().size() + getListaDiscordancia().size();
+    	return getNumeroConcordancias() + getNumeroDiscordancia();
     }
     
     public int getNumeroConcordancias() {
@@ -125,8 +144,16 @@ public abstract class IDica {
     	return listaDiscordancia.size();
     }
     
-    public float calculaIndiceConcordancia() {
-    	return getNumeroConcordancias() / getNumeroVotos();
+    public String calculaIndiceConcordancia() {
+		DecimalFormat df = new DecimalFormat("###.###");
+		df.setRoundingMode(RoundingMode.UP);
+		double resultado = ((double) getNumeroConcordancias() / (double) getNumeroVotos());
+
+		if (getNumeroVotos() > 0) {
+			return df.format(resultado);
+		} else {
+			return "0,0";
+		}
     }
  
 }

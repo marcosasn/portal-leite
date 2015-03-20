@@ -1,4 +1,4 @@
-@(usuario: Usuario, dica: IDica)
+@(usuario: Usuario, dica: IDica, mensagem: String)
 
 <!doctype html>
 <html class="no-js">
@@ -158,45 +158,115 @@
                             <div class="col-lg-12">
                                 <div class="box">
                                     <header>
-                                        <h5>Dica: @dica.getTitulo</h5>
-                                        <div class="toolbar">
-                                            <button class="btn btn-xs btn-primary">Autor: @dica.getAutor().getNome()</button>
-                                        </div>
+                                        <h5>Categoria: @dica.getCategoria</h5>
                                     </header>
                                     <div class="body">
-                                        <pre class="prettyprint linenums">
-                                                <p>Categoria: @dica.getCategoria </p>
-                                            @if(dica.getTipo() == "models.DicaComoNaoTerDificuldade") {
-                                                <p>Assunto: @dica.asInstanceOf[DicaComoNaoTerDificuldade].getNomeAssunto() p>
-                                            }
-                                            @if(dica.getTipo() == "models.DicaDisciplinasAnteriores") {
-                                                <p>Nome: @dica.asInstanceOf[DicaDisciplinasAnteriores].getNomesDisciplinas()</p>
-                                                <p>Razão: @dica.asInstanceOf[DicaDisciplinasAnteriores].getRazoesDisciplinas()</p>
-                                            }
-                                            @if(dica.getTipo() == "models.DicaMaterialUtil") {
-                                                <p>URL: http://@dica.asInstanceOf[DicaMaterialUtil].getNomeURL()/@dica.asInstanceOf[DicaMaterialUtil].getDominioURL()</p>
-                                            }
-                                            @if(dica.getTipo() == "models.DicaConselho") {
-                                                <p>Conselho: @dica.asInstanceOf[DicaConselho].getConselho()</p>
-                                            }
-                                        </pre>
+
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                Dica: @dica.getTitulo
+                                            </div>
+
+                                            <div class="panel-footer">
+                                                @if(dica.getTipo() == "models.DicaComoNaoTerDificuldade") {
+                                                    Assunto: @dica.asInstanceOf[DicaComoNaoTerDificuldade].getNomeAssunto()
+                                                }
+                                                @if(dica.getTipo() == "models.DicaDisciplinasAnteriores") {
+                                                    Nome: @dica.asInstanceOf[DicaDisciplinasAnteriores].getNomesDisciplinas()
+                                                    <br>
+                                                    Razão: @dica.asInstanceOf[DicaDisciplinasAnteriores].getRazoesDisciplinas()
+                                                }
+
+                                                @if(dica.getTipo() == "models.DicaMaterialUtil") {
+                                                    URL: http://@dica.asInstanceOf[DicaMaterialUtil].getNomeURL()@dica.asInstanceOf[DicaMaterialUtil].getDominioURL()
+                                                }
+
+                                                @if(dica.getTipo() == "models.DicaConselho") {
+                                                    Conselho: @dica.asInstanceOf[DicaConselho].getConselho()
+                                                }
+                                            </div>
+
+                                        </div>
+                                        <div align="right">
+                                            <button class="btn btn-xs btn-primary">Autor: @dica.getAutor().getLogin / @dica.getAutor().getNome()</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="col-lg-12">
                                 <div class="box">
                                     <header>
                                         <h5><i class="fa fa fa-bar-chart-o"></i> Estatísticas</h5>
                                     </header>
                                     <div class="body">
-                                        VOTAR: <button class="btn btn-xs btn-success">CONCORDO <i class="fa fa-thumbs-o-up"></i></button><button class="btn btn-xs btn-danger">DISCORDO <i class="fa fa-thumbs-o-down"></i></button><span class="label label-default">Você já votou!</span> <br>
-                                            <<<<<<<<<<<<<<< Espaço para dizer razão de discordancia>>>>>>>>>>>>>>>>>>>>>>> <br>
-                                        NÚMERO DE PESSOAS QUE CONCORDARAM: <br>
-                                        NÚMERO DE PESSOAS QUE DISCORDARAM: <br>
-                                        ÍNDICE DE CONCORDÂNCIA: <br>
+
+                                        <form action="@routes.Application.adicionaConcordancia()" method="post">
+                                        <div class="form-group">
+                                            <div class="col-lg-24">
+                                            @if(!dica.usuarioAtualVotouNestaDica(usuario)) {
+                                                <ul class="list-inline">
+
+
+                                                    <label>VOTAR</label>
+
+                                                        <input type="hidden" name="loginUser" value=@usuario.getLogin>
+                                                        <input type="hidden" name="idDica" value=@dica.getId>
+                                                    <li> <button class="btn btn-xs btn-success" type="submit">CONCORDO <i class="fa fa-thumbs-o-up"></i></button>  </li>
+
+                                                        <li> <a class="text-muted" href="#Discordar" data-toggle="tab"><button class="btn btn-xs btn-danger">DISCORDO <i class="fa fa-thumbs-o-down"></i></button></a>  </li>
+                                                    <br>Pense bem antes de votar, pois só é possível votar uma vez!
+                                                </ul>
+                                            } else {
+                                                <span class="label label-default">Você já votou!</span>
+                                            }
+                                            </div>
+                                        </div>
+                                        </form>
+
+                                        <div class="tab-content">
+
+                                            <div id="Discordar" class="tab-pane">
+
+                                                <div class="col-lg-8">
+                                                    <form action="@routes.Application.adicionaDiscordancia()" method="post">
+                                                <div class="form-group">
+
+                                                    <div class="col-lg-8">
+
+                                                            <span id="cont">100</span>/100 caracteres restantes <br>
+                                                        <input type="hidden" name="loginUser" value=@usuario.getLogin>
+                                                        <input type="hidden" name="idDica" value=@dica.getId>
+                                                        <textarea onkeyup="limite_textarea(this.value)" maxlength="100" id="razaoDiscordancia"  name="razaoDiscordancia" class="form-control" placeholder="Por que você está discordando?"></textarea>
+                                                        <br><button class="btn btn-xs btn-danger" type="submit">CONFIRMAR</button>
+
+                                                    </div>
+                                                </div><!-- /.row -->
+                                                    </form>
+                                                </div>
+                                                <br><br><br><br><br><br><br><br>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-content">
+                                        <div class="form-group">
+                                            @if(mensagem != "") {
+                                                <div class="alert alert-info" role="alert">@mensagem</div>
+                                            }
+                                            NÚMERO DE PESSOAS QUE CONCORDARAM: <span class="badge">@dica.getNumeroConcordancias</span><br>
+                                            NÚMERO DE PESSOAS QUE DISCORDARAM: <span class="badge">@dica.getNumeroDiscordancia</span><br>
+                                            ÍNDICE DE CONCORDÂNCIA: <span class="badge">@dica.calculaIndiceConcordancia()</span><br>
+                                            </div>
+                                            </div>
+
+
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="col-lg-12">
                                 <div class="box">
@@ -204,10 +274,31 @@
                                         <h5><i class="fa fa-thumbs-o-down"></i> Razões de Discordância</h5>
                                     </header>
                                     <div class="body">
-                                        oi
+
+                                    @if(dica.getNumeroDiscordancia > 0) {
+                                        @for(discordancia <- dica.getListaDiscordancia()) {
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                Razões: @discordancia.getRazaoDiscordancia()
+                                            </div>
+                                                <div class="panel-footer">
+                                                Usuário: @discordancia.getAutor().getLogin / @discordancia.getAutor().getNome
+                                            </div>
+                                            </div>
+                                        }
+                                    } else {
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                Ninguém discordou desta dica até agora!
+                                            </div>
+                                        </div>
+                                    }
+
                                     </div>
                                 </div>
                             </div>
+
+
 
                         </div>
                     </div><!-- /.inner -->
@@ -239,4 +330,31 @@
             <!-- Metis demo scripts -->
         <script src="@routes.Assets.at("javascripts/app.js")"></script>
 
+        <script type="text/javascript">
+        (function($) {
+        $(document).ready(function() {
+        $('.list-inline li > a').click(function() {
+        var activeForm = $(this).attr('href') + ' > form';
+        //console.log(activeForm);
+        $(activeForm).addClass('animated fadeIn');
+        //set timer to 1 seconds, after that, unload the animate animation
+        setTimeout(function() {
+        $(activeForm).removeClass('animated fadeIn');
+        }, 1000);
+        });
+        });
+        })(jQuery);
+        </script>
+        <script type="text/javascript">
+        function limite_textarea(valor) {
+        quant = 100;
+        total = valor.length;
+        if(total <= quant) {
+        resto = quant - total;
+        document.getElementById('cont').innerHTML = resto;
+        } else {
+        document.getElementById('razaoDiscordancia').value = valor.substr(0,quant);
+        }
+        }
+        </script>
     </body>

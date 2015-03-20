@@ -9,7 +9,7 @@ public class Discordancia extends Voto {
 
 	public Discordancia() {}
 
-	public Discordancia(Usuario autor, String razaoDiscordancia) throws Exception {
+	public Discordancia(Usuario autor, String razaoDiscordancia) {
 		setAutor(autor);
 		setRazaoDiscordancia(razaoDiscordancia);
 	}
@@ -18,12 +18,9 @@ public class Discordancia extends Voto {
 		return razaoDiscordancia;
 	}
 
-	public void setRazaoDiscordancia(String razaoDiscordancia) throws Exception {
-		if (razaoDiscordancia.length() > 100) {
-			throw new Exception();
-		} else {
+	public void setRazaoDiscordancia(String razaoDiscordancia) {
 			this.razaoDiscordancia = razaoDiscordancia;
-		}
+
 	}
 
 }

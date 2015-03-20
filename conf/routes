@@ -3,12 +3,16 @@
 # ~~~~
 
 # Home page
-GET         /                    controllers.Application.index()
-GET         /login               controllers.Application.login()
-POST        /logar               controllers.Application.logar()
-GET         /logout              controllers.Application.logout()
-POST        /registrar           controllers.Application.registrar()
-GET         /dica                controllers.Application.dica(id: Long)
+GET         /                       controllers.Application.index()
+GET         /login                  controllers.Application.login()
+POST        /logar                  controllers.Application.logar()
+GET         /logout                 controllers.Application.logout()
+POST        /registrar              controllers.Application.registrar()
+GET         /dica                   controllers.Application.dica(id: Long)
+GET         /tema                   controllers.Application.tema()
+POST        /postarDica             controllers.Application.postarDica()
+POST        /addConcordancia        controllers.Application.adicionaConcordancia()
+POST        /addDiscordancia        controllers.Application.adicionaDiscordancia()
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file           controllers.Assets.at(path="/public", file)

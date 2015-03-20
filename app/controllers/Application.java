@@ -1,7 +1,6 @@
 package controllers;
 
-import models.IDica;
-import models.Usuario;
+import models.*;
 import play.*;
 import play.data.Form;
 import play.mvc.*;
@@ -35,7 +34,15 @@ public class Application extends Controller {
         Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", request().username()).get(0);
         IDica dicaAtual = DAO.findByEntityId(IDica.class, id);
 
-        return ok(dica.render(usuarioCorrente, dicaAtual));
+        return ok(dica.render(usuarioCorrente, dicaAtual, ""));
+    }
+
+    @Transactional
+    @Security.Authenticated(Secured.class)
+    public static Result tema() {
+        Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", request().username()).get(0);
+
+        return ok(tema.render(usuarioCorrente, ""));
     }
 
     public static Result login() {
@@ -79,6 +86,139 @@ public class Application extends Controller {
     }
 
     @Transactional
+    public static Result postarDica() {
+        Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
+
+        DynamicForm requestData = Form.form().bindFromRequest();
+
+        String loginUser = requestData.get("loginUser");
+        String titulo = requestData.get("titulo");
+
+        String assuntos = requestData.get("assuntos");
+
+        String conselho = requestData.get("conselho");
+
+        String disciplinasanteriores = requestData.get("disciplinasanteriores");
+        String razoes = requestData.get("razoes");
+
+        String endereco = requestData.get("endereco");
+        String dominio = requestData.get("dominio");
+
+
+        if (requestData.hasErrors()) {
+            return ok(tema.render(usuarioCorrente, "O formulário contém erros."));
+        }
+        if(vazio(titulo)) {
+            return ok(tema.render(usuarioCorrente, "Digite um título para sua dica."));
+        }
+        if (!algumCampoCategoriaPreenchido(assuntos, conselho, disciplinasanteriores, razoes, endereco)) {
+            return ok(tema.render(usuarioCorrente, "Escolha uma categoria e preencha o que se pede."));
+        }
+
+        if(!vazio(disciplinasanteriores) || !vazio(razoes)) {
+            if(vazio(disciplinasanteriores) || vazio(razoes)) {
+                return ok(tema.render(usuarioCorrente, "Ao escolher essa categoria, preencha tudo que se pede."));
+            }
+        }
+
+        Usuario autor = (Usuario) DAO.findByAttributeName("Usuario", "login", loginUser).get(0);
+
+        if(!vazio(assuntos)) {
+            DicaComoNaoTerDificuldade dicaComoNaoTerDificuldadeForm = new DicaComoNaoTerDificuldade(titulo, autor, assuntos);
+            DAO.persist(dicaComoNaoTerDificuldadeForm);
+
+            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Não ter dificuldade' criada com sucesso"));
+        }
+
+        if(!vazio(conselho)) {
+            DicaConselho dicaConselhoForm = new DicaConselho(titulo, autor, conselho);
+            DAO.persist(dicaConselhoForm);
+
+            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Conselho' criada com sucesso"));
+        }
+
+        if(!vazio(disciplinasanteriores) && !vazio(razoes)) {
+            DicaDisciplinasAnteriores dicaDisciplinasAnterioresForm = new DicaDisciplinasAnteriores(titulo, autor, disciplinasanteriores, razoes);
+            DAO.persist(dicaDisciplinasAnterioresForm);
+
+            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Disciplinas Anteriores' criada com sucesso"));
+        }
+
+        if(!vazio(endereco)) {
+            DicaMaterialUtil dicaMaterialUtilForm = new DicaMaterialUtil(titulo, autor, endereco, dominio);
+            DAO.persist(dicaMaterialUtilForm);
+
+            return ok(tema.render(usuarioCorrente, "Dica da categoria 'Material útil' criada com sucesso"));
+        }
+
+        return ok(tema.render(usuarioCorrente, "Erro: processamento do formulario chegou ao fim e não houve resultados."));
+
+    }
+
+    @Transactional
+    public static Result adicionaConcordancia() {
+        Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
+
+        DynamicForm requestData = Form.form().bindFromRequest();
+
+        String loginUser = requestData.get("loginUser");
+        String idDica = requestData.get("idDica");
+
+        IDica dicaAtual = DAO.findByEntityId(IDica.class, Long.parseLong(idDica));
+
+        if (requestData.hasErrors()) {
+            return ok(dica.render(usuarioCorrente, dicaAtual, "O formulário contém erros."));
+        }
+
+        Usuario autor = (Usuario) DAO.findByAttributeName("Usuario", "login", loginUser).get(0);
+
+        Concordancia concordancia = new Concordancia(autor);
+        try {
+            dicaAtual.adicionaConcordancia(concordancia);
+            DAO.merge(dicaAtual);
+            DAO.persist(concordancia);
+            return ok(dica.render(usuarioCorrente, dicaAtual, "Você concordou com esta dica."));
+        } catch (Exception e) {
+            return ok(dica.render(usuarioCorrente, dicaAtual, "Erro, usuário já votou nesta dica."));
+        }
+
+    }
+
+    @Transactional
+    public static Result adicionaDiscordancia() {
+        Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
+
+        DynamicForm requestData = Form.form().bindFromRequest();
+
+        String loginUser = requestData.get("loginUser");
+        String idDica = requestData.get("idDica");
+        String razaoDiscordancia = requestData.get("razaoDiscordancia");
+
+        IDica dicaAtual = DAO.findByEntityId(IDica.class, Long.parseLong(idDica));
+
+        if (requestData.hasErrors()) {
+            return ok(dica.render(usuarioCorrente, dicaAtual, "O formulário contém erros."));
+        }
+
+        if(vazio(razaoDiscordancia)) {
+            return ok(dica.render(usuarioCorrente, dicaAtual, "Ao discordar, informe o motivo."));
+        }
+
+        Usuario autor = (Usuario) DAO.findByAttributeName("Usuario", "login", loginUser).get(0);
+
+        Discordancia discordancia = new Discordancia(autor, razaoDiscordancia);
+        try {
+            dicaAtual.adicionaDiscordancia(discordancia);
+            DAO.merge(dicaAtual);
+            DAO.persist(discordancia);
+             return ok(dica.render(usuarioCorrente, dicaAtual, "Você discordou com esta dica."));
+        } catch (Exception e) {
+            return ok(dica.render(usuarioCorrente, dicaAtual, "Erro, usuário já votou nesta dica."));
+        }
+
+    }
+
+    @Transactional
     public static Result registrar() {
         DynamicForm requestData = Form.form().bindFromRequest();
 
@@ -117,14 +257,28 @@ public class Application extends Controller {
     }
 
     private static boolean verificaDadosVaziosLogin(String login, String senha) {
-        if(login == null || senha == null || login == "" || senha == "") {
+        if(vazio(login) || vazio(senha)) {
             return true;
         }
         return false;
     }
 
     private static boolean verificaDadosVaziosCadastro(String nome, String login, String senha) {
-        if(nome == null || login == null || senha == null || nome == "" || login == "" || senha == "") {
+        if(vazio(nome) || vazio(login) || vazio(senha)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean algumCampoCategoriaPreenchido(String assuntos, String conselho, String disciplinasanteriores, String razoes, String endereco) {
+        if(!vazio(assuntos) || !vazio(conselho) || !vazio(disciplinasanteriores) || !vazio(razoes) || !vazio(endereco)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean vazio(String teste) {
+        if(teste == null || teste == "") {
             return true;
         }
         return false;

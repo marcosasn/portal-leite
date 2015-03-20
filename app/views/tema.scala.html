@@ -1,0 +1,314 @@
+@(usuario: Usuario, mensagem: String)
+
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <title>Portal do Leite</title>
+
+            <!--IE Compatibility modes-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+            <!--Mobile first-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            <!-- Bootstrap -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+
+            <!-- Font Awesome -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+            <!-- Metis core stylesheet -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.min.css")">
+
+            <!-- metisMenu stylesheet -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/metisMenu.min.css")">
+
+            <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+            <!--[if lt IE 9]>
+      <script src="assets/lib/html5shiv/html5shiv.js"></script>
+      <script src="assets/lib/respond/respond.min.js"></script>
+      <![endif]-->
+
+
+        <script src="@routes.Assets.at("stylesheets/less.min.js")"></script>
+
+            <!--Modernizr-->
+        <script src="@routes.Assets.at("stylesheets/modernizr.min.js")"></script>
+    </head>
+    <body class="  ">
+        <div class="bg-dark dk" id="wrap">
+            <div id="top">
+
+                    <!-- .navbar -->
+                <nav class="navbar navbar-inverse navbar-static-top">
+                    <div class="container-fluid">
+
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                        <header class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand">
+                                <img src="@routes.Assets.at("images/portal.gif")">
+                            </a>
+                        </header>
+                        <div class="topnav">
+                            <div class="btn-group">
+                                <a class="btn btn-metis-5" href="#"><i class="fa fa-user fa-fw"></i> Usuário: @usuario.getNome()</a>
+                                <a class="btn btn-metis-5 dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <span class="fa fa-caret-down"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Editar dados</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="@routes.Application.logout()"><i class="fa fa-power-off"></i> Sair do portal</a></li>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <a href="@routes.Application.logout()" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom" class="btn btn-metis-1 btn-sm">
+                                    <i class="fa fa-power-off"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+                                <!-- .nav -->
+                            <ul class="nav navbar-nav">
+                                <li> <a href="">Página inicial</a>  </li>
+                            </ul><!-- /.nav -->
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </nav><!-- /.navbar -->
+                <header class="head">
+
+                    <div class="main-bar">
+                        <h3>
+                            <i class="fa fa-home" href=""></i>&nbsp; Página inicial</h3>
+                    </div><!-- /.main-bar -->
+                </header><!-- /.head -->
+            </div><!-- /#top -->
+            <div id="left">
+                <div class="media user-media bg-dark dker">
+                    <div class="user-media-toggleHover">
+                        <span class="fa fa-user"></span>
+                    </div>
+                    <div class="user-wrapper bg-dark">
+
+                        <div class="media-body">
+
+                            <ul class="list-unstyled user-info">
+              </ul>
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- #menu -->
+                <ul id="menu" class="bg-gray dker">
+                    <li class="nav-header">Disciplinas e temas</li>
+                    <li class="nav-divider"></li>
+                    <li class="">
+                        <a href="javascript:;">
+                            <i class="fa fa-building "></i>
+                            <span class="link-title open">SI1</span>
+                            <i class="fa arrow"></i>
+
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">Tema 1</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Tema 2 </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Tema 3</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Tema 4</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Tema 5</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a href="">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="link-title">
+                                Estatísticas
+                            </span>
+                        </a>
+                    </li>
+                </ul><!-- /#menu -->
+            </div><!-- /#left -->
+            <div id="content">
+                <div class="outer">
+                    <div class="inner bg-light lter">
+                        <div class="col-lg-24">
+
+
+                            <h2 id="building">Criar uma dica</h2>
+                            @if(mensagem != "") {
+                                <div class="alert alert-info" role="alert">@mensagem</div>
+                            }
+
+                            <!--BEGIN INPUT TEXT FIELDS-->
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="box dark">
+                                        <header>
+                                            <div class="icons">
+                                                <i class="fa fa-edit"></i>
+                                            </div>
+                                            <h5>Postar uma dica</h5>
+
+                                        </header>
+                                        <div id="div-1" class="body">
+
+                                            <form class="form-horizontal" action="@routes.Application.postarDica()" method="post">
+                                                <div class="form-group">
+                                                    <label for="text1" class="control-label col-lg-4">Título</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" id="titulo" name="titulo" placeholder="Titulo" class="form-control">
+                                                    </div>
+                                                </div><!-- /.form-group -->
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-lg-4">Categoria</label>
+                                                    <div class="col-lg-24">
+                                                        <ul class="list-inline">
+                                                            <li> <a class="text-muted" href="#DicaComoNaoTerDificuldade" data-toggle="tab">Não ter dificuldade</a>  </li>
+                                                            <li> <a class="text-muted" href="#DicaConselho" data-toggle="tab">Conselho</a>  </li>
+                                                            <li> <a class="text-muted" href="#DicaDisciplinasAnteriores" data-toggle="tab">Disciplinas Anteriores</a>  </li>
+                                                            <li> <a class="text-muted" href="#DicaMaterialUtil" data-toggle="tab">Material útil</a>  </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="tab-content">
+                                                    <div id="DicaComoNaoTerDificuldade" class="tab-pane">
+
+                                                        <div class="form-group">
+                                                            <label for="limiter" class="control-label col-lg-4">Assuntos</label>
+                                                            <div class="col-lg-8">
+                                                                <textarea id="assuntos"  name="assuntos" class="form-control" placeholder="Assuntos que você precisa saber"></textarea>
+                                                            </div>
+                                                        </div><!-- /.row -->
+                                                    </div>
+
+                                                    <div id="DicaConselho" class="tab-pane">
+
+                                                        <div class="form-group">
+                                                            <label for="limiter" class="control-label col-lg-4">Conselho</label>
+                                                            <div class="col-lg-8">
+                                                                <textarea id="conselho" name="conselho" class="form-control" placeholder="Conselho"></textarea>
+                                                            </div>
+                                                        </div><!-- /.row -->
+
+                                                    </div>
+
+                                                    <div id="DicaDisciplinasAnteriores" class="tab-pane">
+
+                                                        <div class="form-group">
+                                                            <label for="limiter" class="control-label col-lg-4">Disciplinas anteriores</label>
+                                                            <div class="col-lg-8">
+                                                                <textarea id="disciplinasanteriores" name="disciplinasanteriores" class="form-control" placeholder="Disciplinas anteriores"></textarea>
+                                                            </div>
+                                                        </div><!-- /.row -->
+
+                                                        <div class="form-group">
+                                                            <label for="limiter" class="control-label col-lg-4">Razões</label>
+                                                            <div class="col-lg-8">
+                                                                <textarea id="razoes" name="razoes" class="form-control" placeholder="Razões destas disciplinas serem escolhidas"></textarea>
+                                                            </div>
+                                                        </div><!-- /.row -->
+
+                                                    </div>
+
+                                                    <div id="DicaMaterialUtil" class="tab-pane">
+
+                                                        <div class="form-group">
+                                                            <label for="limiter" class="control-label col-lg-4">Material útil:</label>
+                                                            <div class="col-lg-8">
+                                                        http://<input type="text" id="endereco" name="endereco" placeholder="endereço" class="form-control" size="5">
+                                                            <div class="col-lg-8">
+                                                                <select class="form-control chzn-select" tabindex="2" id="dominio" name="dominio">
+                                                                    <option value=".com">.com</option>
+                                                                    <option value=".com.br">.com.br</option>
+                                                                    <option value=".edu">.edu</option>
+                                                                    <option value=".edu.br">.edu.br</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                       </div><!-- /.row -->
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                    <input type="hidden" name="loginUser" value=@usuario.getLogin>
+                                                        <label for="limiter" class="control-label col-lg-4"><button type="submit" class="btn btn-success">Postar</button></label>
+                                                    </div>
+
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <p><br><br><br><br><br><br><br><br></p>
+                                </div>
+
+                            </div>
+                    </div><!-- /.inner -->
+                </div><!-- /.outer -->
+            </div><!-- /#content -->
+
+        </div><!-- /#wrap -->
+
+        <footer class="Footer bg-dark dker">
+            <p>2015 &copy; Projeto da disciplina Sistemas de Informação I (UFCG)</p>
+        </footer><!-- /#footer -->
+
+
+        <!--jQuery -->
+        <script src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
+
+            <!--Bootstrap -->
+        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+
+            <!-- MetisMenu -->
+        <script src="@routes.Assets.at("javascripts/metisMenu.min.js")"></script>
+
+            <!-- Screenfull -->
+        <script src="@routes.Assets.at("javascripts/screenfull.min.js")"></script>
+
+            <!-- Metis core scripts -->
+        <script src="@routes.Assets.at("javascripts/core.min.js")"></script>
+
+            <!-- Metis demo scripts -->
+        <script src="@routes.Assets.at("javascripts/app.js")"></script>
+
+            <script type="text/javascript">
+            (function($) {
+            $(document).ready(function() {
+            $('.list-inline li > a').click(function() {
+            var activeForm = $(this).attr('href') + ' > form';
+            //console.log(activeForm);
+            $(activeForm).addClass('animated fadeIn');
+            //set timer to 1 seconds, after that, unload the animate animation
+            setTimeout(function() {
+            $(activeForm).removeClass('animated fadeIn');
+            }, 1000);
+            });
+            });
+            })(jQuery);
+            </script>
+    </body>

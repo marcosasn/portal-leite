@@ -26,15 +26,17 @@ public class Global extends GlobalSettings {
 			@Override
 			public void invoke() throws Throwable {
 
-				List<Usuario> usuarios = dao.findAllByClassName(Usuario.class.getName());
+				// List<Usuario> usuarios = dao.findAllByClassName(Usuario.class.getName());
 				Usuario user1 = new Usuario("eu", "eu", "eu");
 
-				for(Usuario user: usuarios) {
+				dao.persist(user1);
+
+				/* for(Usuario user: usuarios) {
 					if (user.equals(user)) {
-						dao.persist(user1);
+
 					}
 				}
-
+				*/
 				/*
 				Usuario user2 = new Usuario("debugar", "debugar", "debugar");
 				dao.persist(user2);
