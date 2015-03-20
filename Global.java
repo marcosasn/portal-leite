@@ -34,14 +34,16 @@ public class Global extends GlobalSettings {
                 String[] nomes = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS", "HTML+CSS+Bootstrap",
                         "Heroku", "Labs", "Minitestes", "Projeto"};
                 Disciplina si1 = new Disciplina("Sistemas da Informação I");
-                Tema tema;
+                dao.persist(si1);
 
+                Tema tema;
                 for (String nome: nomes) {
                     tema = new Tema(nome);
-                    si1.addTema(tema);
                     dao.persist(tema);
+                    si1.addTema(tema);
+                    dao.merge(si1);
                 }
-                dao.persist(si1);
+
 
                 //List<Usuario> usuarios = dao.findAllByClassName(Usuario.class.getName());
 				/*for(Usuario user: usuarios) {
