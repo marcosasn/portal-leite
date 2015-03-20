@@ -38,7 +38,7 @@ public class Global extends GlobalSettings {
 
                 Tema tema;
                 for (String nome: nomes) {
-                    tema = new Tema(nome);
+                    tema = new Tema(nome,si1);
                     dao.persist(tema);
                     si1.addTema(tema);
                     dao.merge(si1);

@@ -20,6 +20,9 @@ public class Tema {
     @Column
     private String nome;
 
+    @ManyToOne
+    private Disciplina disciplina;
+
     //@OneToMany(cascade=CascadeType.ALL)
     //@JoinColumn
     //private List<IDica> dicas;
@@ -28,8 +31,9 @@ public class Tema {
     @JoinColumn
     List<Avaliacao> avaliacoes;*/
 
-    public Tema(String nome) {
+    public Tema(String nome, Disciplina disciplina) {
         this.nome = nome;
+        this.disciplina = disciplina;
     }
 
     public Tema(){}
