@@ -27,9 +27,8 @@ public class Tema {
     @JoinColumn
     List<Avaliacao> avaliacoes;*/
 
-    public Tema(String nome, Disciplina disciplina) {
+    public Tema(String nome) {
         this.nome = nome;
-        this.disciplina = disciplina;
     }
 
     public Tema(){}
