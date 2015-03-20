@@ -20,16 +20,20 @@ public class Tema {
     @Column
     private String nome;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn
-    List<IDica> dicas;
+    @ManyToOne
+    private Disciplina disciplina;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn
-    List<Avaliacao> avaliacoes;
+    //@OneToMany(cascade=CascadeType.ALL)
+    //@JoinColumn
+    //private List<IDica> dicas;
 
-    public Tema(String nome) {
+    /*@OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn
+    List<Avaliacao> avaliacoes;*/
+
+    public Tema(String nome, Disciplina disciplina) {
         this.nome = nome;
+        this.disciplina = disciplina;
     }
 
     public Tema(){}
@@ -40,5 +44,9 @@ public class Tema {
 
     public void setId(Long id) {
         this.idTema = id;
+    }
+
+    public String getNome() {
+        return nome;
     }
 }
