@@ -27,12 +27,12 @@ public class Global extends GlobalSettings {
 			@Override
 			public void invoke() throws Throwable {
                 Usuario user1 = new Usuario("eu", "eu", "eu");
-                dao.persist(user1);
+                dao.merge(user1);
 
                 String[] nomes = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS", "HTML+CSS+Bootstrap",
                         "Heroku", "Labs", "Minitestes", "Projeto"};
                 Disciplina si1 = new Disciplina("Sistemas da Informação I");
-                dao.persist(si1);
+                dao.merge(si1);
 
                 Tema tema;
                 for (String nome: nomes) {
