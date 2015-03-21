@@ -6,9 +6,7 @@ import models.Disciplina;
 import models.IDica;
 import models.Avaliacao;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by marcosasn on 17/03/15.
@@ -64,5 +62,28 @@ public class Tema {
 
     public int getNumeroAvaliacoes(){
         return avaliacoes.size();
+    }
+
+    public double getMedia() {
+        int soma = 0;
+        for(Integer integer: avaliacoes.values()) {
+            soma += integer;
+        }
+        return soma/this.getNumeroAvaliacoes();
+    }
+
+    public double getMediana() {
+        Integer[] valores = new Integer[this.getNumeroAvaliacoes()];
+        valores = avaliacoes.values().toArray(valores);
+        Arrays.sort(valores);
+        int index = this.getNumeroAvaliacoes();
+
+        if(this.getNumeroAvaliacoes() > 1 && this.getNumeroAvaliacoes()%2 == 0){
+            return (valores[(index/2)-1] + valores[(index/2)+1])/2;
+        }
+        else if (this.getNumeroAvaliacoes()> 1 && this.getNumeroAvaliacoes()%2 != 0){
+            return valores[(index/2)-1];
+        }
+        return valores[index-1];
     }
 }
