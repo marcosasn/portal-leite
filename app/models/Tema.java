@@ -79,7 +79,7 @@ public class Tema {
         int index = this.getNumeroAvaliacoes();
 
         if(this.getNumeroAvaliacoes() > 1 && this.getNumeroAvaliacoes()%2 == 0){
-            return (valores[(index/2)-1] + valores[(index/2)+1])/2;
+            return (valores[(index/2)-1] + valores[(index/2)])/2;
         }
         else if (this.getNumeroAvaliacoes()> 1 && this.getNumeroAvaliacoes()%2 != 0){
             return valores[(index/2)-1];
