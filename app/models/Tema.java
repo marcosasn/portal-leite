@@ -19,14 +19,14 @@ public class Tema {
     @Column
     private String nome;
 
-    //@OneToMany(cascade=CascadeType.ALL)
-    //@JoinColumn
-    //private List<IDica> dicas;
-
-    /*@OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
-    List<Avaliacao> avaliacoes;*/
-
+    private List<IDica> dicas;
+/*
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn
+    private List<Avaliacao> avaliacoes;
+*/
     public Tema(String nome) {
         this.nome = nome;
     }
@@ -44,4 +44,21 @@ public class Tema {
     public String getNome() {
         return nome;
     }
+
+    public List<IDica> getDicas() {
+        return dicas;
+    }
+/*
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+*/
+    public int getNumeroDicas() {
+        return dicas.size();
+    }
+/*
+    public int getNumeroAvaliacoes() {
+        return avaliacoes.size();
+    }
+    */
 }

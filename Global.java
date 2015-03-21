@@ -26,21 +26,21 @@ public class Global extends GlobalSettings {
 
 			@Override
 			public void invoke() throws Throwable {
-                Usuario user1 = new Usuario("eu", "eu", "eu");
-                dao.persist(user1);
+				Usuario user1 = new Usuario("eu", "eu", "eu");
+				dao.persist(user1);
 
-                String[] nomes = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS", "HTML+CSS+Bootstrap",
-                        "Heroku", "Labs", "Minitestes", "Projeto"};
-                Disciplina si1 = new Disciplina("Sistemas da Informação I");
-                dao.persist(si1);
+				String[] nomes = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS", "HTML+CSS+Bootstrap",
+						"Heroku", "Labs", "Minitestes", "Projeto"};
+				Disciplina si1 = new Disciplina("Sistemas da Informação I");
+				dao.persist(si1);
 
-                Tema tema;
-                for (String nome: nomes) {
-                    tema = new Tema(nome);
-                    dao.persist(tema);
-                    si1.addTema(tema);
-                    dao.persist(si1);
-                }
+				Tema tema;
+				for (String nome: nomes) {
+					tema = new Tema(nome);
+					dao.persist(tema);
+					si1.addTema(tema);
+					dao.persist(si1);
+				}
 				dao.flush();
 			}
 		});
@@ -51,8 +51,8 @@ public class Global extends GlobalSettings {
 		JPA.withTransaction(new play.libs.F.Callback0() {
 			@Override
 			public void invoke() throws Throwable {
-                //deveria ter algo aqui???
-                //dao.remove();
+				//deveria ter algo aqui???
+				//dao.remove();
 
 			}
 		});

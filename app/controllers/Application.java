@@ -51,12 +51,13 @@ public class Application extends Controller {
 
     @Transactional
     @Security.Authenticated(Secured.class)
-    public static Result tema() {
+    public static Result tema(Long id) {
         Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", request().username()).get(0);
         List<Disciplina> disciplinas = DAO.findAllByClassName(Disciplina.class.getName());
         List<IDica> listaDicas = DAO.findAllByClassName("IDica");
+        Tema temaAtual = DAO.findByEntityId(Tema.class, id);
 
-        return ok(tema.render(usuarioCorrente, disciplinas, "", listaDicas));
+        return ok(tema.render(usuarioCorrente, disciplinas, "", listaDicas, temaAtual));
     }
 
     public static Result login() {
@@ -120,20 +121,23 @@ public class Application extends Controller {
         String endereco = requestData.get("endereco");
         String dominio = requestData.get("dominio");
 
+        String idTema = requestData.get("idTema");
+
+        Tema temaAtual = DAO.findByEntityId(Tema.class, Long.parseLong(idTema));
 
         if (requestData.hasErrors()) {
-            return ok(tema.render(usuarioCorrente, disciplinas, "O formulário contém erros.", listaDicas));
+            return ok(tema.render(usuarioCorrente, disciplinas, "O formulário contém erros.", listaDicas, temaAtual));
         }
         if(vazio(titulo)) {
-            return ok(tema.render(usuarioCorrente, disciplinas, "Digite um título para sua dica.", listaDicas));
+            return ok(tema.render(usuarioCorrente, disciplinas, "Digite um título para sua dica.", listaDicas, temaAtual));
         }
         if (!algumCampoCategoriaPreenchido(assuntos, conselho, disciplinasanteriores, razoes, endereco)) {
-            return ok(tema.render(usuarioCorrente, disciplinas, "Escolha uma categoria e preencha o que se pede.", listaDicas));
+            return ok(tema.render(usuarioCorrente, disciplinas, "Escolha uma categoria e preencha o que se pede.", listaDicas, temaAtual));
         }
 
         if(!vazio(disciplinasanteriores) || !vazio(razoes)) {
             if(vazio(disciplinasanteriores) || vazio(razoes)) {
-                return ok(tema.render(usuarioCorrente, disciplinas, "Ao escolher essa categoria, preencha tudo que se pede.", listaDicas));
+                return ok(tema.render(usuarioCorrente, disciplinas, "Ao escolher essa categoria, preencha tudo que se pede.", listaDicas, temaAtual));
             }
         }
 
@@ -142,32 +146,40 @@ public class Application extends Controller {
         if(!vazio(assuntos)) {
             DicaComoNaoTerDificuldade dicaComoNaoTerDificuldadeForm = new DicaComoNaoTerDificuldade(titulo, autor, assuntos);
             DAO.persist(dicaComoNaoTerDificuldadeForm);
+            temaAtual.getDicas().add(dicaComoNaoTerDificuldadeForm);
+            DAO.merge(temaAtual);
 
-            return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Não ter dificuldade' criada com sucesso", listaDicas));
+            return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Não ter dificuldade' criada com sucesso", listaDicas, temaAtual));
         }
 
         if(!vazio(conselho)) {
             DicaConselho dicaConselhoForm = new DicaConselho(titulo, autor, conselho);
             DAO.persist(dicaConselhoForm);
+            temaAtual.getDicas().add(dicaConselhoForm);
+            DAO.merge(temaAtual);
 
-            return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Conselho' criada com sucesso", listaDicas));
+            return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Conselho' criada com sucesso", listaDicas, temaAtual));
         }
 
         if(!vazio(disciplinasanteriores) && !vazio(razoes)) {
             DicaDisciplinasAnteriores dicaDisciplinasAnterioresForm = new DicaDisciplinasAnteriores(titulo, autor, disciplinasanteriores, razoes);
             DAO.persist(dicaDisciplinasAnterioresForm);
+            temaAtual.getDicas().add(dicaDisciplinasAnterioresForm);
+            DAO.merge(temaAtual);
 
-            return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Disciplinas Anteriores' criada com sucesso", listaDicas));
+            return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Disciplinas Anteriores' criada com sucesso", listaDicas, temaAtual));
         }
 
         if(!vazio(endereco)) {
             DicaMaterialUtil dicaMaterialUtilForm = new DicaMaterialUtil(titulo, autor, endereco, dominio);
             DAO.persist(dicaMaterialUtilForm);
+            temaAtual.getDicas().add(dicaMaterialUtilForm);
+            DAO.merge(temaAtual);
 
-            return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Material útil' criada com sucesso", listaDicas));
+            return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Material útil' criada com sucesso", listaDicas, temaAtual));
         }
 
-        return ok(tema.render(usuarioCorrente, disciplinas, "Erro: processamento do formulario chegou ao fim e não houve resultados.", listaDicas));
+        return ok(tema.render(usuarioCorrente, disciplinas, "Erro: processamento do formulario chegou ao fim e não houve resultados.", listaDicas, temaAtual));
 
     }
 
