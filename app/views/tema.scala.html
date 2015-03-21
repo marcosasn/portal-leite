@@ -104,7 +104,7 @@
                         <div class="media-body">
 
                             <ul class="list-unstyled user-info">
-              </ul>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -113,27 +113,25 @@
                 <ul id="menu" class="bg-gray dker">
                     <li class="nav-header">Disciplinas e temas</li>
                     <li class="nav-divider"></li>
-
                     <li class="">
                     @for(disciplina <- disciplinas){
-                        <a href="javascript:;">
+                        <a href="disciplina?id=@disciplina.getId">
                             <i class="fa fa-building "></i>
-                            <span class="link-title open">@disciplina.getNome()</span>
+                            <span class="link-title open">@disciplina.getNome()"</span>
                             <i class="fa arrow"></i>
                         </a>
                         <ul>
-                            @for(tema <- disciplina.getTemas()){
                             <li>
                                 <a href="disciplina?id=@disciplina.getId"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;PÁGINA DA DISCIPLINA</a>
                             </li>
                             <li>
                                 <a><i class="fa fa-list-alt fa-fw"></i>&nbsp;TEMAS:</a>
                             </li>
-                        @for(tema <- disciplina.getTemas()){
-                            <li>
-                                <a href="tema?id=@tema.getId">@tema.getNome()</a>
-                            </li>
-                        }
+                            @for(tema <- disciplina.getTemas()){
+                                <li>
+                                    <a href="tema?id=@tema.getId">@tema.getNome()</a>
+                                </li>
+                            }
                         </ul>
                     }
                     </li>
@@ -164,7 +162,7 @@
                                 <a href="dica?id=@diq.getId()">@diq.getTitulo()</a><br>
                             }
 
-                            <!--BEGIN INPUT TEXT FIELDS-->
+                                <!--BEGIN INPUT TEXT FIELDS-->
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="box dark">
@@ -244,21 +242,21 @@
                                                         <div class="form-group">
                                                             <label for="limiter" class="control-label col-lg-4">Material útil:</label>
                                                             <div class="col-lg-8">
-                                                        http://<input type="text" id="endereco" name="endereco" placeholder="endereço" class="form-control" size="5">
-                                                            <div class="col-lg-8">
-                                                                <select class="form-control chzn-select" tabindex="2" id="dominio" name="dominio">
-                                                                    <option value=".com">.com</option>
-                                                                    <option value=".com.br">.com.br</option>
-                                                                    <option value=".edu">.edu</option>
-                                                                    <option value=".edu.br">.edu.br</option>
-                                                                </select>
+                                                                http://<input type="text" id="endereco" name="endereco" placeholder="endereço" class="form-control" size="5">
+                                                                <div class="col-lg-8">
+                                                                    <select class="form-control chzn-select" tabindex="2" id="dominio" name="dominio">
+                                                                        <option value=".com">.com</option>
+                                                                        <option value=".com.br">.com.br</option>
+                                                                        <option value=".edu">.edu</option>
+                                                                        <option value=".edu.br">.edu.br</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                       </div><!-- /.row -->
+                                                        </div><!-- /.row -->
                                                     </div>
 
                                                     <div class="form-group">
-                                                    <input type="hidden" name="loginUser" value=@usuario.getLogin>
+                                                        <input type="hidden" name="loginUser" value=@usuario.getLogin>
                                                         <label for="limiter" class="control-label col-lg-4"><button type="submit" class="btn btn-success">Postar</button></label>
                                                     </div>
 
@@ -271,34 +269,34 @@
                                 </div>
 
                             </div>
-                    </div><!-- /.inner -->
-                </div><!-- /.outer -->
-            </div><!-- /#content -->
+                        </div><!-- /.inner -->
+                    </div><!-- /.outer -->
+                </div><!-- /#content -->
 
-        </div><!-- /#wrap -->
+            </div><!-- /#wrap -->
 
-        <footer class="Footer bg-dark dker">
-            <p>2015 &copy; Projeto da disciplina Sistemas de Informação I (UFCG)</p>
-        </footer><!-- /#footer -->
+            <footer class="Footer bg-dark dker">
+                <p>2015 &copy; Projeto da disciplina Sistemas de Informação I (UFCG)</p>
+            </footer><!-- /#footer -->
 
 
-        <!--jQuery -->
-        <script src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
+            <!--jQuery -->
+            <script src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
 
-            <!--Bootstrap -->
-        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+                <!--Bootstrap -->
+            <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
 
-            <!-- MetisMenu -->
-        <script src="@routes.Assets.at("javascripts/metisMenu.min.js")"></script>
+                <!-- MetisMenu -->
+            <script src="@routes.Assets.at("javascripts/metisMenu.min.js")"></script>
 
-            <!-- Screenfull -->
-        <script src="@routes.Assets.at("javascripts/screenfull.min.js")"></script>
+                <!-- Screenfull -->
+            <script src="@routes.Assets.at("javascripts/screenfull.min.js")"></script>
 
-            <!-- Metis core scripts -->
-        <script src="@routes.Assets.at("javascripts/core.min.js")"></script>
+                <!-- Metis core scripts -->
+            <script src="@routes.Assets.at("javascripts/core.min.js")"></script>
 
-            <!-- Metis demo scripts -->
-        <script src="@routes.Assets.at("javascripts/app.js")"></script>
+                <!-- Metis demo scripts -->
+            <script src="@routes.Assets.at("javascripts/app.js")"></script>
 
             <script type="text/javascript">
             (function($) {
