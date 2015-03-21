@@ -183,12 +183,7 @@
                                         Não há dicas para este tema até agora. Seja o primeiro a criar ^_^
                                     </div>
                             }
-
-                            @if(mensagem != "") {
-                                <div class="alert alert-info" role="alert">@mensagem</div>
-                            }
-
-                                <!--BEGIN INPUT TEXT FIELDS-->
+                            <!--BEGIN INPUT TEXT FIELDS-->
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="box dark">
@@ -291,6 +286,42 @@
 
                                             </form>
                                         </div>
+                                    </div>
+                                    <br>
+                                    <h2 id="building">Estatísticas de @tema.getNome()</h2>
+                                    @if(tema.getNumeroAvaliacoes > 0 || mensagem != "") {
+                                    <div class="alert alert-info" role="alert">@mensagem</div>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="box dark">
+                                                <header>
+                                                    <div class="icons">
+                                                        <i class="fa fa-list"></i>
+                                                    </div>
+                                                    <h5>Estatísticas de avaliação do tema.</h5>
+                                                </header>
+                                                <div id="div-1" class="body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-hover table-striped">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Avaliação média: @tema.getMedia()</th>
+                                                                <th>Avaliação mediana: @tema.getMediana()</th>
+                                                            </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.row -->
+                                        </div>
+                                    </div>
+                                    } else {
+                                    <br>
+                                    <div class="alert alert-info" role="alert">
+                                        Não há estatísticas para este tema até agora.
+                                    </div>
+                                    }
+                                    <div class="box dark">
                                         <header>
                                             <div class="icons">
                                                 <i class="fa fa-edit"></i>
@@ -322,6 +353,9 @@
                                     <p><br><br><br><br><br><br><br><br><br><br><br></p>
                                 </div>
                             </div>
+                        </div><!-- /.inner -->
+                        <div class="col-lg-24">
+                            <p><br><br><br><br><br><br><br><br><br><br><br><br></p>
                         </div><!-- /.inner -->
                     </div><!-- /.outer -->
                 </div><!-- /#content -->

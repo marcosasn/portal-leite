@@ -287,7 +287,7 @@ public class Application extends Controller {
 
         temaAtual.addAvaliacao(loginUser,dificuldade);
         DAO.merge(temaAtual);
-        return ok(estatisticas.render(usuarioCorrente, disciplinas, "Avaliação do tema postada com sucesso.", listaDicas, temaAtual));
+        return ok(tema.render(usuarioCorrente, disciplinas, "Avaliação do tema postada com sucesso.", listaDicas, temaAtual));
     }
 
     @Transactional
