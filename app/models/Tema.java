@@ -4,8 +4,11 @@ import play.db.jpa.Transactional;
 import javax.persistence.*;
 import models.Disciplina;
 import models.IDica;
+import models.Avaliacao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by marcosasn on 17/03/15.
@@ -22,11 +25,13 @@ public class Tema {
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
     private List<IDica> dicas;
-/*
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn
-    private List<Avaliacao> avaliacoes;
-*/
+
+    @ElementCollection
+    @MapKeyColumn
+    @Column
+    @CollectionTable
+    private Map<String, Integer> avaliacoes = new HashMap<String, Integer>();
+
     public Tema(String nome) {
         this.nome = nome;
     }
@@ -48,17 +53,16 @@ public class Tema {
     public List<IDica> getDicas() {
         return dicas;
     }
-/*
-    public List<Avaliacao> getAvaliacoes() {
-        return avaliacoes;
-    }
-*/
+
     public int getNumeroDicas() {
         return dicas.size();
     }
-/*
-    public int getNumeroAvaliacoes() {
+
+    public void addAvaliacao(String login, Integer avaliacao) {
+        avaliacoes.put(login, avaliacao);
+    }
+
+    public int getNumeroAvaliacoes(){
         return avaliacoes.size();
     }
-    */
 }
