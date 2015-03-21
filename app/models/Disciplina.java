@@ -68,4 +68,22 @@ public class Disciplina {
     public int getNumeroMetaDicas() {
         return metadicas.size();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Disciplina)) {
+            return false;
+        }
+
+        Disciplina subject = (Disciplina) o;
+
+        if (!nome.equals(subject.nome)) {
+            return false;
+        }
+
+        return true;
+    }
 }

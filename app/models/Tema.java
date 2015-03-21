@@ -86,4 +86,21 @@ public class Tema {
         }
         return valores[index-1];
     }
+
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Tema)) {
+            return false;
+        }
+
+        Tema topic = (Tema) o;
+
+        if (!nome.equals(topic.nome)) {
+            return false;
+        }
+
+        return true;
+    }
 }

@@ -18,42 +18,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Global extends GlobalSettings {
-	private static GenericDAO dao = new GenericDAO();
+	private static GenericDAO DAO = new GenericDAO();
 
 	@Override
 	public void onStart(Application app) {
-		JPA.withTransaction(new play.libs.F.Callback0() {
-			@Override
-			public void invoke() throws Throwable {
-				Usuario user1 = new Usuario("eu", "eu", "eu");
-				dao.persist(user1);
 
-				String[] nomes = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS", "HTML+CSS+Bootstrap",
-						"Heroku", "Labs", "Minitestes", "Projeto"};
-				Disciplina si1 = new Disciplina("Sistemas da Informação I");
-				dao.persist(si1);
+		String temasSI1[] = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS",
+							 "HTML+CSS+Bootstrap", "Heroku", "Labs", "Minitestes", "Projeto"};
 
-				Tema tema;
-				for (String nome: nomes) {
-					tema = new Tema(nome);
-					dao.persist(tema);
-					si1.addTema(tema);
-					dao.persist(si1);
-				}
-				dao.flush();
-			}
+		JPA.withTransaction(() -> {
+			Disciplina disciplinaASerCriada = criarDisciplina("Sistemas de Informação I", temasSI1);
 		});
 	}
 
-	@Override
-	public void onStop(Application app){
-		JPA.withTransaction(new play.libs.F.Callback0() {
-			@Override
-			public void invoke() throws Throwable {
-				//deveria ter algo aqui???
-				//dao.remove();
+	private Disciplina criarDisciplina(String nomeDisciplina, String[] temas) {
+		// A disciplina a ser adicionada precisa passar por uma verificação de existência primeiro
+		Disciplina disciplina = criarDisciplina(nomeDisciplina);
 
-			}
-		});
+		for (String nomeTema : temas) {
+			disciplina.addTema(criarTema(nomeTema));
+		}
+
+		DAO.merge(disciplina);
+		return disciplina;
 	}
+
+	private Disciplina criarDisciplina(String nomeDisciplina) {
+		Disciplina disciplina = new Disciplina(nomeDisciplina);
+
+		// Verifica se a disciplina em questão já existe. Se existir, não precisa criar um novo, basta retorná-la.
+		List<Disciplina> listaDisciplinas = DAO.findAllByClassName(Disciplina.class.getName());
+		for (Disciplina disciplinaSistema: listaDisciplinas) {
+			if (disciplinaSistema.equals(disciplina)) {
+				return disciplinaSistema;
+			}
+		}
+
+		// Se não existir, cria um novo e persiste no banco de dados
+		DAO.persist(disciplina);
+		return disciplina;
+	}
+
+	private Tema criarTema(String nomeTema) {
+		Tema tema = new Tema(nomeTema);
+
+		// Se o tema ja exitir, ele é retornado.
+		List<Tema> listaTemas = DAO.findAllByClassName(Tema.class.getName());
+		for (Tema temaSistema: listaTemas) {
+			if (temaSistema.equals(tema)) {
+				return temaSistema;
+			}
+		}
+
+		// Se o tema não existir, ele é criado e persistido no banco de dados.
+		DAO.persist(tema);
+		return tema;
+	}
+
 }
