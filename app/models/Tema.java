@@ -4,8 +4,9 @@ import play.db.jpa.Transactional;
 import javax.persistence.*;
 import models.Disciplina;
 import models.IDica;
+import models.Avaliacao;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by marcosasn on 17/03/15.
@@ -22,11 +23,13 @@ public class Tema {
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
     private List<IDica> dicas;
-/*
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn
-    private List<Avaliacao> avaliacoes;
-*/
+
+    @ElementCollection
+    @MapKeyColumn
+    @Column
+    @CollectionTable
+    private Map<String, Integer> avaliacoes = new HashMap<String, Integer>();
+
     public Tema(String nome) {
         this.nome = nome;
     }
@@ -48,17 +51,39 @@ public class Tema {
     public List<IDica> getDicas() {
         return dicas;
     }
-/*
-    public List<Avaliacao> getAvaliacoes() {
-        return avaliacoes;
-    }
-*/
+
     public int getNumeroDicas() {
         return dicas.size();
     }
-/*
-    public int getNumeroAvaliacoes() {
+
+    public void addAvaliacao(String login, Integer avaliacao) {
+        avaliacoes.put(login, avaliacao);
+    }
+
+    public int getNumeroAvaliacoes(){
         return avaliacoes.size();
     }
-    */
+
+    public double getMedia() {
+        int soma = 0;
+        for(Integer integer: avaliacoes.values()) {
+            soma += integer;
+        }
+        return soma/this.getNumeroAvaliacoes();
+    }
+
+    public double getMediana() {
+        Integer[] valores = new Integer[this.getNumeroAvaliacoes()];
+        valores = avaliacoes.values().toArray(valores);
+        Arrays.sort(valores);
+        int index = this.getNumeroAvaliacoes();
+
+        if(this.getNumeroAvaliacoes() > 1 && this.getNumeroAvaliacoes()%2 == 0){
+            return (valores[(index/2)-1] + valores[(index/2)+1])/2;
+        }
+        else if (this.getNumeroAvaliacoes()> 1 && this.getNumeroAvaliacoes()%2 != 0){
+            return valores[(index/2)-1];
+        }
+        return valores[index-1];
+    }
 }

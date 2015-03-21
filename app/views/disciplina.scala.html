@@ -127,7 +127,7 @@
                         @for(disciplina <- disciplinas){
                             <a href="disciplina?id=@disciplina.getId">
                                 <i class="fa fa-building "></i>
-                                    <span class="link-title open">@disciplina.getNome()"</span>
+                                    <span class="link-title open">@disciplina.getNome()</span>
                                     <i class="fa arrow"></i>
                             </a>
                             <ul>
@@ -148,14 +148,6 @@
 
 
                     <li class="nav-divider"></li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa fa-bar-chart-o"></i>
-                            <span class="link-title">
-                                Estatísticas
-                            </span>
-                        </a>
-                    </li>
                 </ul><!-- /#menu -->
             </div><!-- /#left -->
             <div id="content">
@@ -163,7 +155,7 @@
                     <div class="inner bg-light lter">
                         <div class="col-lg-12">
 
-
+                            <h2 id="building">@disc.getNome()</h2>
                             @if(disc.getNumeroMetaDicas > 0) {
                             <div class="row">
                                 <div class="col-lg-8">

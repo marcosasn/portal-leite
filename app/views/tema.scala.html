@@ -117,7 +117,7 @@
                     @for(disciplina <- disciplinas){
                         <a href="disciplina?id=@disciplina.getId">
                             <i class="fa fa-building "></i>
-                            <span class="link-title open">@disciplina.getNome()"</span>
+                            <span class="link-title open">@disciplina.getNome()</span>
                             <i class="fa arrow"></i>
                         </a>
                         <ul>
@@ -136,24 +136,14 @@
                     }
                     </li>
                     <li class="nav-divider"></li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa fa-bar-chart-o"></i>
-                            <span class="link-title">
-                                Estatísticas
-                            </span>
-                        </a>
-                    </li>
                 </ul><!-- /#menu -->
             </div><!-- /#left -->
             <div id="content">
                 <div class="outer">
                     <div class="inner bg-light lter">
                         <div class="col-lg-24">
-
-
+                            <h2 id="building">@tema.getNome()</h2>
                             @if(tema.getNumeroDicas > 0) {
-
                             <div class="row">
                             <div class="col-lg-8">
                                 <div class="box dark">
@@ -193,8 +183,6 @@
                                         Não há dicas para este tema até agora. Seja o primeiro a criar ^_^
                                     </div>
                             }
-
-
 
                             @if(mensagem != "") {
                                 <div class="alert alert-info" role="alert">@mensagem</div>
@@ -303,10 +291,36 @@
 
                                             </form>
                                         </div>
+                                        <header>
+                                            <div class="icons">
+                                                <i class="fa fa-edit"></i>
+                                            </div>
+                                            <h5>Avaliar o tema</h5>
+                                        </header>
+                                        <div id="div-1" class="body">
+                                            <form class="form-horizontal" action="@routes.Application.postarAvaliacao()" method="post">
+                                                <div class="form-group">
+                                                    <label for="text1" class="control-label col-lg-4">Dificuldade</label>
+                                                    <div class="col-lg-4">
+                                                        <select class="form-control chzn-select" tabindex="2" id="dificuldade" name="dificuldade">
+                                                            <option value="-2">-2</option>
+                                                            <option value="-1">-1</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                        </select>
+                                                    </div>
+                                                </div><!-- /.row -->
+                                                <div class="form-group">
+                                                     <input type="hidden" name="loginUser" value=@usuario.getLogin>
+                                                     <input type="hidden" name="idTema" value=@tema.getId>
+                                                     <label for="limiter" class="control-label col-lg-4"><button type="submit" class="btn btn-danger">Avaliar</button></label>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <p><br><br><br><br><br><br><br><br></p>
+                                    <p><br><br><br><br><br><br><br><br><br><br><br></p>
                                 </div>
-
                             </div>
                         </div><!-- /.inner -->
                     </div><!-- /.outer -->

@@ -23,7 +23,6 @@ public class Global extends GlobalSettings {
 	@Override
 	public void onStart(Application app) {
 		JPA.withTransaction(new play.libs.F.Callback0() {
-
 			@Override
 			public void invoke() throws Throwable {
 				Usuario user1 = new Usuario("eu", "eu", "eu");
