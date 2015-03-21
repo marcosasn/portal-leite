@@ -184,6 +184,39 @@
                                                 @if(dica.getTipo() == "models.DicaConselho") {
                                                     Conselho: @dica.asInstanceOf[DicaConselho].getConselho()
                                                 }
+
+                                                @if(dica.getTipo() == "models.MetaDica") {
+                                                    <div id="div-1" class="body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Dica</th>
+                                                                        <th>Categoria</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                @for(dicaDaMetaDica <- dica.asInstanceOf[MetaDica].getListaDicas) {
+                                                                    <tr>
+                                                                        <td><a href="dica?id=@dicaDaMetaDica.getId">@dicaDaMetaDica.getTitulo</a><br></td>
+                                                                        @if(dicaDaMetaDica.getTipo() == "models.MetaDica") {
+                                                                            <td>Meta-Dica</td>
+                                                                        } else {
+                                                                            <td>Dica simples</td>
+                                                                        }
+                                                                    </tr>
+
+                                                                }
+
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    Comentário: @dica.asInstanceOf[MetaDica].getComentario
+                                                }
                                             </div>
 
                                         </div>

@@ -1,4 +1,4 @@
-@(usuario: Usuario, disciplinas: List[Disciplina], disc: Disciplina)
+@(usuario: Usuario, disciplinas: List[Disciplina], disc: Disciplina, metadicas: List[MetaDica], dicasAdicionar: List[DicaSimples], mensagem: String)
 
 <!doctype html>
 <html class="no-js">
@@ -25,6 +25,14 @@
             <!-- metisMenu stylesheet -->
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/metisMenu.min.css")">
 
+            <!-- metisMenu stylesheet -->
+        <link rel="stylesheet" href="http://demo.onokumus.com/metis/assets/lib/metismenu/metisMenu.min.css">
+        <link rel="stylesheet" href="http://demo.onokumus.com/metis/assets/lib/jquery.uniform/themes/default/css/uniform.default.css">
+        <link rel="stylesheet" href="http://demo.onokumus.com/metis/assets/lib/inputlimiter/jquery.inputlimiter.css">
+        <link rel="stylesheet" href="http://demo.onokumus.com/metis/assets/lib/chosen/chosen.min.css">
+        <link rel="stylesheet" href="http://demo.onokumus.com/metis/assets/lib/tagsinput/jquery.tagsinput.css">
+        <link rel="stylesheet" href="http://demo.onokumus.com/metis/assets/lib/switch/css/bootstrap3/bootstrap-switch.min.css">
+
             <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,6 +47,7 @@
 
             <!--Modernizr-->
         <script src="@routes.Assets.at("stylesheets/modernizr.min.js")"></script>
+
     </head>
     <body class="  ">
         <div class="bg-dark dk" id="wrap">
@@ -155,14 +164,129 @@
                         <div class="col-lg-12">
 
 
-                            <h2 id="building">Disciplina</h2>
-                            <br>
-                            <p><img src="@routes.Assets.at("images/leite.jpg")" align="right"><i class="fa fa-trophy"></i>  Aqui você pode compartilhar dicas sobre diversos temas das disciplinas que você está cursando na UFCG.</p>
-                            <p><p><i class="fa fa-trophy"></i>  Atualizar página.
-                        </p>
-                            <br>
+                            @if(disc.getNumeroMetaDicas > 0) {
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="box dark">
+                                        <header>
+                                            <div class="icons">
+                                                <i class="fa fa-list"></i>
+                                            </div>
+                                            <h5>Lista de meta-dicas desta disciplina</h5>
+                                        </header>
+                                        <div id="div-1" class="body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Escolha uma meta-dica</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @for(mdica <- metadicas) {
+                                                        <tr>
+                                                            <td><a href="dica?id=@mdica.getId">@mdica.getTitulo</a><br></td>
+                                                        </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.row -->
+                                </div>
+                            </div>
+                            } else {
+                                <br>
+                                <div class="alert alert-info" role="alert">
+                                    Não há meta-dicas para esta disciplina até agora. Seja o primeiro a criar ^_^
+                                </div>
+                            }
+
+                            @if(mensagem != "") {
+                                <div class="alert alert-info" role="alert">@mensagem</div>
+                            }
+
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="box dark">
+                                        <header>
+                                            <div class="icons">
+                                                <i class="fa fa-list"></i>
+                                            </div>
+                                            <h5>Postar uma meta-dica</h5>
+                                        </header>
+                                        <div id="div-1" class="body">
+
+
+                                            <div id="div-1" class="body">
+
+                                                <form class="form-horizontal" action="/postarMetaDica" method="post">
+                                                    <div class="form-group">
+                                                        <label for="text1" class="control-label col-lg-4">Título</label>
+                                                        <div class="col-lg-8">
+                                                            <input type="text" id="titulo" name="titulo" placeholder="Titulo" class="form-control">
+                                                        </div>
+                                                    </div><!-- /.form-group -->
+
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-4">Dicas simples</label>
+                                                        <div class="col-lg-8">
+                                                            <select id="selectDicaSimples" name="selectDicaSimples" data-placeholder="Dicas da disciplina" multiple class="form-control chzn-select">
+                                                                @if(dicasAdicionar.size > 0) {
+                                                                    @for(opcaoDica <- dicasAdicionar) {
+                                                                        <option value=@opcaoDica.getId >@opcaoDica.getTitulo</option>
+                                                                    }
+                                                                } else {
+                                                                    <option disabled>Não há dicas na disciplina no momento.</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-4">Meta-Dicas</label>
+                                                        <div class="col-lg-8">
+                                                            <select id="selectMetaDica" name="selectMetaDica" data-placeholder="Meta-Dicas da disciplina" multiple class="form-control chzn-select">
+                                                            @if(metadicas.size > 0) {
+                                                                @for(metaDicaAdicionar <- metadicas) {
+                                                                    <option value=@metaDicaAdicionar.getId >@metaDicaAdicionar.getTitulo</option>
+                                                                }
+                                                            } else {
+                                                                <option disabled>Não há meta-dicas na disciplina no momento.</option>
+                                                            }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label for="limiter" class="control-label col-lg-4">Comentário</label>
+                                                        <div class="col-lg-8">
+                                                            <textarea id="comentario" name="comentario" class="form-control" placeholder="Faça um comentário sobre esta meta-dica"></textarea>
+                                                        </div>
+                                                    </div><!-- /.row -->
+
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="loginUser" value=@usuario.getLogin>
+                                                        <input type="hidden" name="idDisciplina" value=@disc.getId>
+                                                        <label for="limiter" class="control-label col-lg-4"><button type="submit" class="btn btn-success">Postar</button></label>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+
+
+                                        </div>
+                                    </div><!-- /.row -->
+                                </div>
+                            </div>
+
 
                             <p><br><br><br><br><br><br><br><br></p>
+
                         </div>
                     </div><!-- /.inner -->
                 </div><!-- /.outer -->
@@ -192,5 +316,24 @@
 
             <!-- Metis demo scripts -->
         <script src="@routes.Assets.at("javascripts/app.js")"></script>
+        <script>
+        $(function() {
+        Metis.formGeneral();
+        });
+        </script>
+
+        <script src="http://demo.onokumus.com/metis/assets/js/style-switcher.min.js"></script>
+
+            <!-- Screenfull -->
+        <script src="http://demo.onokumus.com/metis/assets/lib/screenfull/screenfull.js"></script>
+        <script src="http://demo.onokumus.com/metis/assets/lib/jquery.uniform/jquery.uniform.min.js"></script>
+        <script src="http://demo.onokumus.com/metis/assets/lib/inputlimiter/jquery.inputlimiter.js"></script>
+        <script src="http://demo.onokumus.com/metis/assets/lib/chosen/chosen.jquery.min.js"></script>
+        <script src="http://demo.onokumus.com/metis/assets/lib/tagsinput/jquery.tagsinput.js"></script>
+        <script src="http://demo.onokumus.com/metis/assets/lib/validVal/js/jquery.validVal.min.js"></script>
+        <script src="http://demo.onokumus.com/metis/assets/lib/moment/moment.min.js"></script>
+        <script src="http://demo.onokumus.com/metis/assets/lib/switch/js/bootstrap-switch.min.js"></script>
+        <script src="http://demo.onokumus.com/metis/assets/lib/autosize/jquery.autosize.min.js"></script>
+        <script src="http://demo.onokumus.com/metis/assets/lib/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
 
     </body>

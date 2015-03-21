@@ -12,6 +12,7 @@ GET         /dica                   controllers.Application.dica(id: Long)
 GET         /disciplina             controllers.Application.disciplina(id: Long)
 GET         /tema                   controllers.Application.tema(id: Long)
 POST        /postarDica             controllers.Application.postarDica()
+POST        /postarMetaDica          controllers.Application.postarMetaDica()
 POST        /addConcordancia        controllers.Application.adicionaConcordancia()
 POST        /addDiscordancia        controllers.Application.adicionaDiscordancia()
 

@@ -20,6 +20,10 @@ public class Disciplina {
     @JoinColumn
     private List<Tema> temas = new ArrayList<Tema>();
 
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn
+    private List<MetaDica> metadicas = new ArrayList<MetaDica>();
+
     @Column
     private String nome;
 
@@ -55,5 +59,13 @@ public class Disciplina {
 
     public List<Tema> getTemas() {
         return temas;
+    }
+
+    public List<MetaDica> getMetadicas() {
+        return metadicas;
+    }
+
+    public int getNumeroMetaDicas() {
+        return metadicas.size();
     }
 }
