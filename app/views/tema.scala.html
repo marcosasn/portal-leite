@@ -183,6 +183,11 @@
                                         Não há dicas para este tema até agora. Seja o primeiro a criar ^_^
                                     </div>
                             }
+
+                            @if(mensagem != "") {
+                                <div class="alert alert-info" role="alert">@mensagem</div>
+                            }
+                            
                             <!--BEGIN INPUT TEXT FIELDS-->
                             <div class="row">
                                 <div class="col-lg-8">
