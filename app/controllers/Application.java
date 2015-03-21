@@ -180,7 +180,23 @@ public class Application extends Controller {
         }
 
         return ok(tema.render(usuarioCorrente, disciplinas, "Erro: processamento do formulario chegou ao fim e não houve resultados.", listaDicas, temaAtual));
+    }
 
+    @Transactional
+    public static Result postarAvaliacao() {
+        Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
+        List<Disciplina> disciplinas = DAO.findAllByClassName(Disciplina.class.getName());
+        List<IDica> listaDicas = DAO.findAllByClassName("IDica");
+
+        DynamicForm requestData = Form.form().bindFromRequest();
+        String idTema = requestData.get("idTema");
+        Tema temaAtual = DAO.findByEntityId(Tema.class, Long.parseLong(idTema));
+
+        String loginUser = requestData.get("loginUser");
+        String dificuldade = requestData.get("dificuldade");
+
+        ///tema recebe a dificuldade e o autor............
+        return ok(tema.render(usuarioCorrente, disciplinas, "Avaliação do tema postada com sucesso", listaDicas, temaAtual));
     }
 
     @Transactional

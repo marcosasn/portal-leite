@@ -301,10 +301,36 @@
 
                                             </form>
                                         </div>
+                                        <header>
+                                            <div class="icons">
+                                                <i class="fa fa-edit"></i>
+                                            </div>
+                                            <h5>Avaliar o tema</h5>
+                                        </header>
+                                        <div id="div-1" class="body">
+                                            <form class="form-horizontal" action="@routes.Application.postarAvaliacao()" method="post">
+                                                <div class="form-group">
+                                                    <label for="text1" class="control-label col-lg-4">Dificuldade</label>
+                                                    <div class="col-lg-4">
+                                                        <select class="form-control chzn-select" tabindex="2" id="dificuldade" name="dificuldade">
+                                                            <option value="-2">-2</option>
+                                                            <option value="-1">-1</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                        </select>
+                                                    </div>
+                                                </div><!-- /.row -->
+                                                <div class="form-group">
+                                                     <input type="hidden" name="loginUser" value=@usuario.getLogin>
+                                                     <input type="hidden" name="idTema" value=@tema.getId>
+                                                     <label for="limiter" class="control-label col-lg-4"><button type="submit" class="btn btn-danger">Avaliar</button></label>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                     <p><br><br><br><br><br><br><br><br></p>
                                 </div>
-
                             </div>
                         </div><!-- /.inner -->
                     </div><!-- /.outer -->

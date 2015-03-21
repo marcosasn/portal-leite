@@ -14,6 +14,7 @@ GET         /tema                   controllers.Application.tema(id: Long)
 POST        /postarDica             controllers.Application.postarDica()
 POST        /addConcordancia        controllers.Application.adicionaConcordancia()
 POST        /addDiscordancia        controllers.Application.adicionaDiscordancia()
+POST        /postarAvaliacao        controllers.Application.postarAvaliacao()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file           controllers.Assets.at(path="/public", file)
