@@ -285,6 +285,23 @@ public class Application extends Controller {
     }
 
     @Transactional
+    public static Result postarDenuncia() {
+        Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
+        List<Disciplina> disciplinas = DAO.findAllByClassName(Disciplina.class.getName());
+
+        DynamicForm requestData = Form.form().bindFromRequest();
+        String idDica = requestData.get("idDica");
+        IDica dicaAtual = DAO.findByEntityId(IDica.class, Long.parseLong(idDica));
+
+        String loginUser = requestData.get("loginUser");
+        dicaAtual.addDenuncia(loginUser);
+
+        DAO.merge(dicaAtual);
+        return ok(dica.render(usuarioCorrente, disciplinas, dicaAtual, ""));
+    }
+
+
+    @Transactional
     public static Result adicionaConcordancia() {
         Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
         List<Disciplina> disciplinas = DAO.findAllByClassName(Disciplina.class.getName());

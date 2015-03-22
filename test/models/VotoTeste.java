@@ -1,3 +1,5 @@
+package test.models;
+
 import models.*;
 import models.dao.GenericDAO;
 import org.junit.After;

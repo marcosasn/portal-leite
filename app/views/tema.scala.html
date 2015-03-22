@@ -164,10 +164,19 @@
                                                 </thead>
                                                 <tbody>
                                                 @for(diq <- tema.getDicas) {
-                                                    <tr>
-                                                        <td><a href="dica?id=@diq.getId()">@diq.getTitulo()</a><br></td>
-                                                        <td>@diq.getNumeroConcordancias()<br></td>
-                                                    </tr>
+                                                    @if(diq.isVisivel()) {
+                                                        @if(diq.isVotavel()){
+                                                            <tr>
+                                                                <td><a href="dica?id=@diq.getId()">@diq.getTitulo()</a><br></td>
+                                                                <td>@diq.getNumeroConcordancias()<br></td>
+                                                            </tr>
+                                                        } else {
+                                                            <tr>
+                                                                <td><a href="">@diq.getTitulo()</a><br></td>
+                                                                <td>@diq.getNumeroConcordancias()<br></td>
+                                                            </tr>
+                                                        }
+                                                    }
                                                 }
                                                 </tbody>
                                             </table>
