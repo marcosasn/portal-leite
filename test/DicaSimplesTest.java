@@ -1,7 +1,6 @@
 import models.*;
 import models.dao.GenericDAO;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import play.db.jpa.JPA;
@@ -15,7 +14,7 @@ import models.Usuario;
 import static org.fest.assertions.Assertions.*;
 import java.util.List;
 
-public class IDicaTest {
+public class DicaSimplesTest {
     public final GenericDAO dao = new GenericDAO();
     private Result result;
     public EntityManager em;
@@ -65,10 +64,6 @@ public class IDicaTest {
 
     @Test
     public void devePostarDica() throws Exception {
-        //Global adiciona o usuário eu, por isso o número de usuários começa com 1
-        List<Usuario> usuarios = dao.findAllByClassName(Usuario.class.getName());
-        assertThat(usuarios.size()).isEqualTo(1);
-
         // Verifica que existe 1 disciplina ao inicializar o sistema
         List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
         assertThat(disciplinas.size()).isEqualTo(1);

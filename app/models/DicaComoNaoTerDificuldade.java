@@ -9,6 +9,11 @@ public class DicaComoNaoTerDificuldade extends DicaSimples {
 
 	public DicaComoNaoTerDificuldade() {}
 
+	public DicaComoNaoTerDificuldade(String titulo, Usuario autor, String nomeAssunto) {
+		super(titulo, autor);
+		this.nomeAssunto = nomeAssunto;
+	}
+
 	@Override
 	public String getTipo() {
 		return DicaComoNaoTerDificuldade.class.getName();
@@ -17,11 +22,6 @@ public class DicaComoNaoTerDificuldade extends DicaSimples {
 	@Override
 	public String getCategoria() {
 		return "O que você precisa saber para não ter dificuldades";
-	}
-
-	public DicaComoNaoTerDificuldade(String titulo, Usuario autor, String nomeAssunto) {
-		super(titulo, autor);
-		setNomeAssunto(nomeAssunto);
 	}
 
 	public String getNomeAssunto() {

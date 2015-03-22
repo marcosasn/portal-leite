@@ -16,7 +16,7 @@ public class MetaDica extends IDica {
 
 	public MetaDica(String titulo, Usuario autor, String comentario) {
 		super(titulo, autor);
-		setComentario(comentario);
+		this.comentario = comentario;
 	}
 
 	@Override

@@ -34,8 +34,8 @@ public abstract class IDica implements Comparable<IDica> {
 	public IDica() {}
 
 	public IDica(String titulo, Usuario autor) {
-		setTitulo(titulo);
-		setAutor(autor);
+		this.titulo = titulo;
+		this.autor = autor;
 	}
 	
 	public static enum StatusVisualizacao { ABERTO, FECHADO }

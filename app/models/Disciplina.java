@@ -1,9 +1,6 @@
 package models;
 
-import play.db.jpa.Transactional;
 import javax.persistence.*;
-import models.Tema;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,5 +82,10 @@ public class Disciplina {
         }
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return nome.hashCode();
     }
 }

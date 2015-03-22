@@ -9,6 +9,11 @@ public class DicaConselho extends DicaSimples {
 
 	public DicaConselho() {}
 
+	public DicaConselho(String titulo, Usuario autor, String conselho) {
+		super(titulo, autor);
+		this.conselho = conselho;
+	}
+
 	@Override
 	public String getTipo() {
 		return DicaConselho.class.getName();
@@ -17,11 +22,6 @@ public class DicaConselho extends DicaSimples {
 	@Override
 	public String getCategoria() {
 		return "Conselho";
-	}
-
-	public DicaConselho(String titulo, Usuario autor, String conselho) {
-		super(titulo, autor);
-		setConselho(conselho);
 	}
 
 	public String getConselho() {

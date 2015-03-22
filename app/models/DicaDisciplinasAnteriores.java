@@ -11,6 +11,12 @@ public class DicaDisciplinasAnteriores extends DicaSimples {
 
 	public DicaDisciplinasAnteriores() {}
 
+	public DicaDisciplinasAnteriores(String titulo, Usuario autor, String nomesDisciplinas, String razoesDisciplinas) {
+		super(titulo, autor);
+		this.nomesDisciplinas = nomesDisciplinas;
+		this.razoesDisciplinas = razoesDisciplinas;
+	}
+
 	@Override
 	public String getTipo() {
 		return DicaDisciplinasAnteriores.class.getName();
@@ -19,12 +25,6 @@ public class DicaDisciplinasAnteriores extends DicaSimples {
 	@Override
 	public String getCategoria() {
 		return "Disciplinas anteriores que te ajudarão aqui";
-	}
-
-	public DicaDisciplinasAnteriores(String titulo, Usuario autor, String nomesDisciplinas, String razoesDisciplinas) {
-		super(titulo, autor);
-		setNomesDisciplinas(nomesDisciplinas);
-		setRazoesDisciplinas(razoesDisciplinas);
 	}
 
 	public String getNomesDisciplinas() {

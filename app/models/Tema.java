@@ -1,10 +1,6 @@
 package models;
 
-import play.db.jpa.Transactional;
 import javax.persistence.*;
-import models.Disciplina;
-import models.IDica;
-import models.Avaliacao;
 
 import java.util.*;
 
@@ -106,6 +102,11 @@ public class Tema {
         }
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return nome.hashCode();
     }
 
     public void ordenarTopConcordancias() {

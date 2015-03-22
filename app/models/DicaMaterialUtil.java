@@ -11,6 +11,12 @@ public class DicaMaterialUtil extends DicaSimples {
 
 	public DicaMaterialUtil() {}
 
+	public DicaMaterialUtil(String titulo, Usuario autor, String nomeURL, String dominioURL) {
+		super(titulo, autor);
+		this.nomeURL = nomeURL;
+		this.dominioURL = dominioURL;
+	}
+
 	@Override
 	public String getTipo() {
 		return DicaMaterialUtil.class.getName();
@@ -19,12 +25,6 @@ public class DicaMaterialUtil extends DicaSimples {
 	@Override
 	public String getCategoria() {
 		return "Material útil";
-	}
-
-	public DicaMaterialUtil(String titulo, Usuario autor, String nomeURL, String dominioURL) {
-		super(titulo, autor);
-		setNomeURL(nomeURL);
-		setDominioURL(dominioURL);
 	}
 
 	public String getNomeURL() {
