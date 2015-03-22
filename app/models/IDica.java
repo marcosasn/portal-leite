@@ -11,11 +11,6 @@ public abstract class IDica {
 	@GeneratedValue
 	private long id;
 
-	// RETIRAR
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn
-	private Set<Usuario> listaUsuariosQueVotaram = new HashSet<Usuario>();
-
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn
 	private List<Concordancia> listaConcordancia = new ArrayList<Concordancia>();
