@@ -1,3 +1,5 @@
+package controller;
+
 import models.dao.GenericDAO;
 import org.junit.After;
 import org.junit.Before;
