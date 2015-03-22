@@ -6,9 +6,7 @@ import play.mvc.*;
 import play.data.*;
 import models.dao.GenericDAO;
 import play.db.jpa.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import views.html.*;
 
 public class Login extends Controller {
