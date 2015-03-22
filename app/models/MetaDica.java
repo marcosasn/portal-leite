@@ -6,13 +6,18 @@ import java.util.List;
 
 @Entity
 public class MetaDica extends IDica {
-	@OneToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinColumn
 	private List<IDica> listaDicas = new ArrayList<IDica>();
 	@Column
 	private String comentario;
 
 	public MetaDica() {}
+
+	public MetaDica(String titulo, Usuario autor, String comentario) {
+		super(titulo, autor);
+		setComentario(comentario);
+	}
 
 	@Override
 	public String getTipo() {
@@ -22,11 +27,6 @@ public class MetaDica extends IDica {
 	@Override
 	public String getCategoria() {
 		return "Meta Dica";
-	}
-
-	public MetaDica(String titulo, Usuario autor, String comentario) {
-		super(titulo, autor);
-		setComentario(comentario);
 	}
 	
 	public String getComentario() {
@@ -43,6 +43,10 @@ public class MetaDica extends IDica {
 	
 	public List<IDica> getListaDicas() {
 		return listaDicas;
+	}
+
+	public int getNumeroDicasNaMetaDica() {
+		return listaDicas.size();
 	}
 
 }

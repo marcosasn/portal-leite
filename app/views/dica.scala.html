@@ -189,6 +189,7 @@
                                                                 </thead>
                                                                 <tbody>
 
+
                                                                 @for(dicaDaMetaDica <- dica.asInstanceOf[MetaDica].getListaDicas) {
                                                                     <tr>
                                                                         <td><a href="dica?id=@dicaDaMetaDica.getId">@dicaDaMetaDica.getTitulo</a><br></td>
@@ -206,7 +207,7 @@
                                                             </table>
                                                         </div>
                                                     </div>
-
+                                                    <p align="right"><b>Total de dicas na meta-dica:</b> <span class="badge">@dica.asInstanceOf[MetaDica].getNumeroDicasNaMetaDica</span></p>
                                                     Comentário: @dica.asInstanceOf[MetaDica].getComentario
                                                 }
                                             </div>

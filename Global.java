@@ -17,13 +17,14 @@ import java.lang.Override;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Global extends GlobalSettings {
 	private static GenericDAO DAO = new GenericDAO();
 
 	@Override
 	public void onStart(Application app) {
 
-		String temasSI1[] = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS",
+		final String temasSI1[] = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS",
 				"HTML+CSS+Bootstrap", "Heroku", "Labs", "Minitestes", "Projeto"};
 
 		JPA.withTransaction(new play.libs.F.Callback0() {
