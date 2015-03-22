@@ -22,7 +22,7 @@ public class Tema {
 
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn
-    private List<IDica> dicas;
+    private List<IDica> dicas = new ArrayList<IDica>();
 
     @ElementCollection
     @MapKeyColumn
@@ -62,6 +62,10 @@ public class Tema {
 
     public int getNumeroAvaliacoes(){
         return avaliacoes.size();
+    }
+
+    public void addDica(IDica dica) {
+        dicas.add(dica);
     }
 
     public double getMedia() {

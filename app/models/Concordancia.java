@@ -8,7 +8,7 @@ public class Concordancia extends Voto {
 	public Concordancia() {}
 
 	public Concordancia(Usuario autor) {
-		setAutor(autor);
+		super(autor);
 	}
 	
 }

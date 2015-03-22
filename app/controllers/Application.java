@@ -234,7 +234,7 @@ public class Application extends Controller {
         if(!vazio(assuntos)) {
             DicaComoNaoTerDificuldade dicaComoNaoTerDificuldadeForm = new DicaComoNaoTerDificuldade(titulo, autor, assuntos);
             DAO.persist(dicaComoNaoTerDificuldadeForm);
-            temaAtual.getDicas().add(dicaComoNaoTerDificuldadeForm);
+            temaAtual.addDica(dicaComoNaoTerDificuldadeForm);
             DAO.merge(temaAtual);
 
             return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Não ter dificuldade' criada com sucesso", temaAtual, ""));
@@ -243,7 +243,7 @@ public class Application extends Controller {
         if(!vazio(conselho)) {
             DicaConselho dicaConselhoForm = new DicaConselho(titulo, autor, conselho);
             DAO.persist(dicaConselhoForm);
-            temaAtual.getDicas().add(dicaConselhoForm);
+            temaAtual.addDica(dicaConselhoForm);
             DAO.merge(temaAtual);
 
             return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Conselho' criada com sucesso", temaAtual, ""));
@@ -252,7 +252,7 @@ public class Application extends Controller {
         if(!vazio(disciplinasanteriores) && !vazio(razoes)) {
             DicaDisciplinasAnteriores dicaDisciplinasAnterioresForm = new DicaDisciplinasAnteriores(titulo, autor, disciplinasanteriores, razoes);
             DAO.persist(dicaDisciplinasAnterioresForm);
-            temaAtual.getDicas().add(dicaDisciplinasAnterioresForm);
+            temaAtual.addDica(dicaDisciplinasAnterioresForm);
             DAO.merge(temaAtual);
 
             return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Disciplinas Anteriores' criada com sucesso", temaAtual, ""));
@@ -261,7 +261,7 @@ public class Application extends Controller {
         if(!vazio(endereco)) {
             DicaMaterialUtil dicaMaterialUtilForm = new DicaMaterialUtil(titulo, autor, endereco, dominio);
             DAO.persist(dicaMaterialUtilForm);
-            temaAtual.getDicas().add(dicaMaterialUtilForm);
+            temaAtual.addDica(dicaMaterialUtilForm);
             DAO.merge(temaAtual);
 
             return ok(tema.render(usuarioCorrente, disciplinas, "Dica da categoria 'Material útil' criada com sucesso", temaAtual, ""));

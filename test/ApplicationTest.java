@@ -4,37 +4,20 @@ import org.junit.Before;
 import org.junit.Test;
 import play.db.jpa.JPA;
 import play.db.jpa.JPAPlugin;
-import play.mvc.Http;
 import play.mvc.Result;
-import play.GlobalSettings;
 import play.test.FakeApplication;
 import play.test.Helpers;
 import scala.Option;
 import javax.persistence.EntityManager;
 import models.Usuario;
-
-import java.util.List;
-
-import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
-
+import java.util.List;
 
 public class ApplicationTest {
 
     public final GenericDAO dao = new GenericDAO();
     private Result result;
     public EntityManager em;
-
-    @Before
-    public void setUp() {
-        //Using Global.java to the tests
-        FakeApplication app = Helpers.fakeApplication();
-        Helpers.start(app);
-        Option<JPAPlugin> jpaPlugin = app.getWrappedApplication().plugin(JPAPlugin.class);
-        em = jpaPlugin.get().em("default");
-        JPA.bindForCurrentThread(em);
-        em.getTransaction().begin();
-    }
 
     @Test
     public void deveCadastrarUsuario() throws Exception {
@@ -72,6 +55,17 @@ public class ApplicationTest {
         dao.persist(novousuario3);
         usuarios = dao.findAllByClassName(Usuario.class.getName());
         assertThat(usuarios.size()).isEqualTo(4);
+    }
+
+    @Before
+    public void setUp() {
+        //Using Global.java to the tests
+        FakeApplication app = Helpers.fakeApplication();
+        Helpers.start(app);
+        Option<JPAPlugin> jpaPlugin = app.getWrappedApplication().plugin(JPAPlugin.class);
+        em = jpaPlugin.get().em("default");
+        JPA.bindForCurrentThread(em);
+        em.getTransaction().begin();
     }
 
     @After
