@@ -26,16 +26,14 @@ public class Global extends GlobalSettings {
 		String temasSI1[] = {"Análise x Design", "OO", "GRASP", "GoF", "Arquitetura", "Play", "JS",
 				"HTML+CSS+Bootstrap", "Heroku", "Labs", "Minitestes", "Projeto"};
 
-		JPA.withTransaction(() -> {
-			Disciplina disciplinaASerCriada = criarDisciplina("Sistemas de Informação I", temasSI1);
-		});
-
 		JPA.withTransaction(new play.libs.F.Callback0() {
 
 			@Override
 			public void invoke() throws Throwable {
 				Usuario user1 = new Usuario("eu", "eu", "eu");
 				DAO.persist(user1);
+
+				Disciplina disciplinaASerCriada = criarDisciplina("Sistemas de Informação I", temasSI1);
 			}
 		});
 	}
