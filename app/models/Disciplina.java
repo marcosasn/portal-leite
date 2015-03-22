@@ -62,6 +62,10 @@ public class Disciplina {
         return metadicas;
     }
 
+    public  void addMetaDica(MetaDica metaDica) {
+        metadicas.add(metaDica);
+    }
+
     public int getNumeroMetaDicas() {
         return metadicas.size();
     }

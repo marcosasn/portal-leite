@@ -109,7 +109,7 @@ public class Application extends Controller {
         }
 
             DAO.persist(novaMetaDica);
-            disciplinaAtual.getMetadicas().add(novaMetaDica);
+            disciplinaAtual.addMetaDica(novaMetaDica);
             DAO.merge(disciplinaAtual);
 
             return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicas, listaAdicionarDicaSimples, "Meta-dica para esta disciplina criada com sucesso."));
