@@ -4,10 +4,10 @@
 
 # Home page
 GET         /                       controllers.Application.index()
-GET         /login                  controllers.Application.login()
-POST        /logar                  controllers.Application.logar()
-GET         /logout                 controllers.Application.logout()
-POST        /registrar              controllers.Application.registrar()
+GET         /login                  controllers.Login.login()
+POST        /logar                  controllers.Login.logar()
+GET         /logout                 controllers.Login.logout()
+POST        /registrar              controllers.Cadastro.registrar()
 GET         /dica                   controllers.Application.dica(id: Long)
 GET         /disciplina             controllers.Application.disciplina(id: Long)
 GET         /tema                   controllers.Application.tema(id: Long)
