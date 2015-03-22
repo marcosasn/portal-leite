@@ -13,7 +13,7 @@ import models.Usuario;
 import static org.fest.assertions.Assertions.*;
 import java.util.List;
 
-public class ApplicationTest {
+public class CadastroTest {
 
     public final GenericDAO dao = new GenericDAO();
     private Result result;
