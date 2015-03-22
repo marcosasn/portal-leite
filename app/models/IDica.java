@@ -97,7 +97,7 @@ public abstract class IDica implements Comparable<IDica> {
 
 	public void adicionaConcordancia(Concordancia concordancia) throws Exception {
 		if (getListaUsuariosQueVotaram().contains(concordancia.getAutor())) {
-			throw new Exception();
+			throw new Exception("Usuário já votou");
 		}
 		else {
 			listaConcordancia.add(concordancia);
@@ -108,7 +108,7 @@ public abstract class IDica implements Comparable<IDica> {
 	public void adicionaDiscordancia(Discordancia discordancia) throws Exception {
 
 		if (getListaUsuariosQueVotaram().contains(discordancia.getAutor())) {
-			throw new Exception();
+			throw new Exception("Usuário já votou");
 		}
 		else {
 			listaDiscordancia.add(discordancia);

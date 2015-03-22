@@ -10,7 +10,7 @@ public class Discordancia extends Voto {
 	public Discordancia() {}
 
 	public Discordancia(Usuario autor, String razaoDiscordancia) {
-		setAutor(autor);
+		super(autor);
 		setRazaoDiscordancia(razaoDiscordancia);
 	}
 

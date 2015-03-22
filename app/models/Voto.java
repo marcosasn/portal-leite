@@ -14,6 +14,10 @@ public abstract class Voto {
 
 	public Voto() {}
 
+	public Voto(Usuario autor) {
+		this.autor = autor;
+	}
+
 	public Usuario getAutor() {
 		return autor;
 	}
