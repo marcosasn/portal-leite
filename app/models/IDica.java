@@ -7,6 +7,9 @@ import java.util.*;
 
 @Entity
 public abstract class IDica implements Comparable<IDica> {
+	private final int NUMERO_DENUNCIAS_FECHA_VISUALIZACAO = 3;
+	private final int NUMERO_VOTOS_FECHA_NOVOS_VOTOS = 20;
+
 	@Id
 	@GeneratedValue
 	private long id;
@@ -175,14 +178,14 @@ public abstract class IDica implements Comparable<IDica> {
         int cont = 0;
         for(Integer value: denuncias.values()) {
             cont += value;
-            if (cont == 3){
+            if (cont == NUMERO_DENUNCIAS_FECHA_VISUALIZACAO){
                 statusVisualizacao = StatusVisualizacao.FECHADO;
             }
         }
     }
 
     private void verificaEstadoVotacao(){
-        if (this.getNumeroConcordancias() == 20 || this.getNumeroDiscordancia() == 20) {
+        if (this.getNumeroConcordancias() == NUMERO_VOTOS_FECHA_NOVOS_VOTOS || this.getNumeroDiscordancia() == NUMERO_VOTOS_FECHA_NOVOS_VOTOS) {
             statusAberturaParaVotos = StatusAberturaParaVotos.FECHADO;
         }
     }

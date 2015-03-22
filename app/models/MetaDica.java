@@ -28,7 +28,7 @@ public class MetaDica extends IDica {
 	public String getCategoria() {
 		return "Meta Dica";
 	}
-	
+
 	public String getComentario() {
 		return comentario;
 	}
@@ -36,11 +36,11 @@ public class MetaDica extends IDica {
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-	
+
 	public void adicionaDica(IDica dica) {
 		listaDicas.add(dica);
 	}
-	
+
 	public List<IDica> getListaDicas() {
 		return listaDicas;
 	}

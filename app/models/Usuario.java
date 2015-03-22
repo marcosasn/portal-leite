@@ -65,25 +65,33 @@ public class Usuario {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Usuario other = (Usuario) obj;
-        if (id != other.id)
+        if (id != other.id) {
             return false;
+        }
         if (login == null) {
-            if (other.login != null)
+            if (other.login != null) {
                 return false;
-        } else if (!login.equals(other.login))
+            }
+        } else if (!login.equals(other.login)) {
             return false;
+        }
         if (nome == null) {
-            if (other.nome != null)
+            if (other.nome != null) {
                 return false;
-        } else if (!nome.equals(other.nome))
+            }
+        } else if (!nome.equals(other.nome)) {
             return false;
+        }
         return true;
     }
 }
