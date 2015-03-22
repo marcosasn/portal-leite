@@ -107,4 +107,8 @@ public class Tema {
 
         return true;
     }
+
+    public void ordenarTopConcordancias() {
+        Collections.sort(dicas);
+    }
 }

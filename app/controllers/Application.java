@@ -145,6 +145,8 @@ public class Application extends Controller {
         Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", request().username()).get(0);
         List<Disciplina> disciplinas = DAO.findAllByClassName(Disciplina.class.getName());
         Tema temaAtual = DAO.findByEntityId(Tema.class, id);
+        temaAtual.ordenarTopConcordancias();
+        DAO.merge(temaAtual);
 
         return ok(tema.render(usuarioCorrente, disciplinas, "", temaAtual, ""));
     }
