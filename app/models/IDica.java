@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 @Entity
-public abstract class IDica {
+public abstract class IDica implements Comparable<IDica> {
 	@Id
 	@GeneratedValue
 	private long id;
@@ -151,5 +151,9 @@ public abstract class IDica {
 			return "0,0";
 		}
     }
- 
+
+    @Override
+    public int compareTo(IDica iDica) {
+        return iDica.getNumeroConcordancias() - this.getNumeroConcordancias();
+    }
 }
