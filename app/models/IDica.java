@@ -27,11 +27,17 @@ public abstract class IDica implements Comparable<IDica> {
 	private Usuario autor;
 
 	@Column
-	private StatusVisualizacao statusVisualizacao;
+	private StatusVisualizacao statusVisualizacao = StatusVisualizacao.ABERTO;
 	@Column
-	private StatusAberturaParaVotos statusAberturaParaVotos;
+	private StatusAberturaParaVotos statusAberturaParaVotos = StatusAberturaParaVotos.ABERTO;
 
-	public IDica() {}
+    @ElementCollection
+    @MapKeyColumn
+    @Column
+    @CollectionTable
+    private Map<String, Integer> denuncias = new HashMap<String, Integer>();
+
+    public IDica() {}
 
 	public IDica(String titulo, Usuario autor) {
 		setTitulo(titulo);
@@ -64,12 +70,12 @@ public abstract class IDica implements Comparable<IDica> {
 		this.autor = autor;
 	}
 	
-	public StatusVisualizacao getStatusVisualizacao() {
-		return statusVisualizacao;
+	public boolean isVisivel() {
+		return statusVisualizacao == StatusVisualizacao.ABERTO;
 	}
 
-	public StatusAberturaParaVotos getStatusAberturaParaVotos() {
-		return statusAberturaParaVotos;
+	public boolean isVotavel() {
+		return statusAberturaParaVotos == StatusAberturaParaVotos.ABERTO;
 	}
 
 	public abstract String getTipo();
@@ -95,6 +101,7 @@ public abstract class IDica implements Comparable<IDica> {
 		}
 		else {
 			listaConcordancia.add(concordancia);
+            this.verificaEstadoVotacao();
 		}
 	}
 
@@ -105,6 +112,7 @@ public abstract class IDica implements Comparable<IDica> {
 		}
 		else {
 			listaDiscordancia.add(discordancia);
+            this.verificaEstadoVotacao();
 		}
 	}
 
@@ -119,7 +127,6 @@ public abstract class IDica implements Comparable<IDica> {
 		}
 		return listaUsuariosQueVotaram;
 	}
-
 
 	public boolean usuarioAtualVotouNestaDica(Usuario usuario) {
 		if((getListaUsuariosQueVotaram().contains(usuario))) {
@@ -150,6 +157,34 @@ public abstract class IDica implements Comparable<IDica> {
 		} else {
 			return "0,0";
 		}
+    }
+
+    public boolean recebeuDenunciaDe(String user) {
+        if(denuncias.containsKey(user)){
+            return true;
+        }
+        return false;
+    }
+
+    public void addDenuncia(String user){
+        denuncias.put(user,new Integer(1));
+        this.verificaVisualizacao();
+    }
+
+    private void verificaVisualizacao() {
+        int cont = 0;
+        for(Integer value: denuncias.values()) {
+            cont += value;
+            if (cont == 3){
+                statusVisualizacao = StatusVisualizacao.FECHADO;
+            }
+        }
+    }
+
+    private void verificaEstadoVotacao(){
+        if (this.getNumeroConcordancias() == 20 || this.getNumeroDiscordancia() == 20) {
+            statusAberturaParaVotos = StatusAberturaParaVotos.FECHADO;
+        }
     }
 
     @Override
