@@ -1,4 +1,4 @@
-@(usuario: Usuario, disciplinas: List[Disciplina], mensagem: String, listaDicas: List[IDica], tema: Tema)
+@(usuario: Usuario, disciplinas: List[Disciplina], mensagem: String, listaDicas: List[IDica], tema: Tema, mensagemAvaliacao: String)
 
 <!doctype html>
 <html class="no-js">
@@ -294,8 +294,10 @@
                                     </div>
                                     <br>
                                     <h2 id="building">Estatísticas de @tema.getNome()</h2>
-                                    @if(tema.getNumeroAvaliacoes > 0 || mensagem != "") {
-
+                                    @if(mensagemAvaliacao != "") {
+                                        <div class="alert alert-info" role="alert">@mensagemAvaliacao</div>
+                                    }
+                                    @if(tema.getNumeroAvaliacoes > 0) {
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="box dark">
