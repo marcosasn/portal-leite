@@ -303,39 +303,42 @@
                                     </div>
                                     <br>
                                     <h2 id="building">Estatísticas de @tema.getNome()</h2>
+                                    <br>
                                     @if(mensagemAvaliacao != "") {
                                         <div class="alert alert-info" role="alert">@mensagemAvaliacao</div>
                                     }
-                                    @if(tema.getNumeroAvaliacoes > 0) {
-                                    <div class="row">
-                                        <div class="col-lg-8">
-                                            <div class="box dark">
-                                                <header>
-                                                    <div class="icons">
-                                                        <i class="fa fa-list"></i>
+                                    @if(tema.isAvaliado(usuario.getLogin())) {
+                                        @if(tema.getNumeroAvaliacoes > 0) {
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <div class="box dark">
+                                                    <header>
+                                                        <div class="icons">
+                                                            <i class="fa fa-list"></i>
+                                                        </div>
+                                                        <h5>Estatísticas de avaliação do tema.</h5>
+                                                    </header>
+                                                    <div id="div-1" class="body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover table-striped">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Avaliação média: @tema.getMedia()</th>
+                                                                    <th>Avaliação mediana: @tema.getMediana()</th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                    <h5>Estatísticas de avaliação do tema.</h5>
-                                                </header>
-                                                <div id="div-1" class="body">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-bordered table-hover table-striped">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>Avaliação média: @tema.getMedia()</th>
-                                                                <th>Avaliação mediana: @tema.getMediana()</th>
-                                                            </tr>
-                                                            </thead>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div><!-- /.row -->
+                                                </div><!-- /.row -->
+                                            </div>
                                         </div>
-                                    </div>
-                                    } else {
-                                    <br>
-                                    <div class="alert alert-info" role="alert">
-                                        Não há estatísticas para este tema até agora.
-                                    </div>
+                                        } else {
+                                        <br>
+                                        <div class="alert alert-info" role="alert">
+                                            Não há estatísticas para este tema até agora.
+                                        </div>
+                                        }
                                     }
                                     <div class="box dark">
                                         <header>

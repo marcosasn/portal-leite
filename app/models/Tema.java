@@ -112,4 +112,11 @@ public class Tema {
     public void ordenarTopConcordancias() {
         Collections.sort(dicas);
     }
+
+    public boolean isAvaliado(String user) {
+        if(avaliacoes.containsKey(user)){
+            return true;
+        }
+        return false;
+    }
 }
