@@ -228,19 +228,20 @@
                                         <form action="@routes.VotoController.adicionaConcordancia()" method="post">
                                         <div class="form-group">
                                             <div class="col-lg-24">
-                                            @if(!dica.usuarioAtualVotouNestaDica(usuario)) {
-                                                <ul class="list-inline">
-                                                    <label>VOTAR</label>
+                                            @if(dica.isVotavel()){
+                                                @if(!dica.usuarioAtualVotouNestaDica(usuario)) {
+                                                    <ul class="list-inline">
+                                                        <label>VOTAR</label>
+                                                            <input type="hidden" name="loginUser" value=@usuario.getLogin>
+                                                            <input type="hidden" name="idDica" value=@dica.getId>
+                                                        <li> <button class="btn btn-xs btn-success" type="submit">CONCORDO <i class="fa fa-thumbs-o-up"></i></button>  </li>
 
-                                                        <input type="hidden" name="loginUser" value=@usuario.getLogin>
-                                                        <input type="hidden" name="idDica" value=@dica.getId>
-                                                    <li> <button class="btn btn-xs btn-success" type="submit">CONCORDO <i class="fa fa-thumbs-o-up"></i></button>  </li>
-
-                                                        <li> <a class="text-muted" href="#Discordar" data-toggle="tab"><button class="btn btn-xs btn-danger">DISCORDO <i class="fa fa-thumbs-o-down"></i></button></a>  </li>
-                                                    <br>Pense bem antes de votar, pois só é possível votar uma vez!
-                                                </ul>
-                                            } else {
-                                                <span class="label label-default">Você já votou!</span>
+                                                            <li> <a class="text-muted" href="#Discordar" data-toggle="tab"><button class="btn btn-xs btn-danger">DISCORDO <i class="fa fa-thumbs-o-down"></i></button></a>  </li>
+                                                        <br>Pense bem antes de votar, pois só é possível votar uma vez!
+                                                    </ul>
+                                                } else {
+                                                    <span class="label label-default">Você já votou!</span>
+                                                }
                                             }
                                             </div>
                                         </div>
