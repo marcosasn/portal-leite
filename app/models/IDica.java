@@ -185,7 +185,7 @@ public abstract class IDica implements Comparable<IDica> {
     }
 
     private void verificaEstadoVotacao(){
-        if (this.getNumeroConcordancias() == NUMERO_VOTOS_FECHA_NOVOS_VOTOS || this.getNumeroDiscordancia() == NUMERO_VOTOS_FECHA_NOVOS_VOTOS) {
+        if (this.getNumeroConcordancias()+this.getNumeroDiscordancia() == NUMERO_VOTOS_FECHA_NOVOS_VOTOS) {
             statusAberturaParaVotos = StatusAberturaParaVotos.FECHADO;
         }
     }
