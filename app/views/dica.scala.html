@@ -325,7 +325,7 @@
                                             <h5><i class="fa fa-thumbs-o-down"></i> Denunciar esta dica</h5>
                                         </header>
                                         <div class="body">
-                                            <form class="form-horizontal" action="@routes.Application.postarDenuncia()" method="post">
+                                            <form class="form-horizontal" action="@routes.IDicaController.postarDenuncia()" method="post">
                                                 <div class="form-group">
                                                     <input type="hidden" name="loginUser" value=@usuario.getLogin>
                                                     <input type="hidden" name="idDica" value="@dica.getId">

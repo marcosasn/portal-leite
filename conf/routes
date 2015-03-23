@@ -15,8 +15,8 @@ POST        /postarDica             controllers.IDicaController.postarDica()
 POST        /postarMetaDica         controllers.IDicaController.postarMetaDica()
 POST        /addConcordancia        controllers.VotoController.adicionaConcordancia()
 POST        /addDiscordancia        controllers.VotoController.adicionaDiscordancia()
-POST        /postarAvaliacao        controllers.Application.postarAvaliacao()
-POST        /postarDenuncia         controllers.Application.postarDenuncia()
+POST        /postarAvaliacao        controllers.TemaController.postarAvaliacao()
+POST        /postarDenuncia         controllers.IDicaController.postarDenuncia()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file           controllers.Assets.at(path="/public", file)

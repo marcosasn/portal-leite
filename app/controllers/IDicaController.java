@@ -167,6 +167,22 @@ public class IDicaController extends Controller {
 
     }
 
+    @Transactional
+    public static Result postarDenuncia() {
+        Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
+        List<Disciplina> disciplinas = DAO.findAllByClassName(Disciplina.class.getName());
+
+        DynamicForm requestData = Form.form().bindFromRequest();
+        String idDica = requestData.get("idDica");
+        IDica dicaAtual = DAO.findByEntityId(IDica.class, Long.parseLong(idDica));
+
+        String loginUser = requestData.get("loginUser");
+        dicaAtual.addDenuncia(loginUser);
+
+        DAO.merge(dicaAtual);
+        return ok(dica.render(usuarioCorrente, disciplinas, dicaAtual, ""));
+    }
+
     private static boolean arrayVazio(String[] array) {
         if(array == null || array.length == 0) {
             return true;
