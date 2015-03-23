@@ -174,6 +174,10 @@ public abstract class IDica implements Comparable<IDica> {
         this.verificaVisualizacao();
     }
 
+	public int getNumeroDenuncias() {
+		return denuncias.size();
+	}
+
     private void verificaVisualizacao() {
         int cont = 0;
         for(Integer value: denuncias.values()) {

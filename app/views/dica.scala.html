@@ -242,6 +242,8 @@
                                                 } else {
                                                     <span class="label label-default">Você já votou!</span>
                                                 }
+                                            } else {
+                                                <span class="label label-default">Esta dica não é mais votável.</span>
                                             }
                                             </div>
                                         </div>
@@ -321,6 +323,7 @@
 
                             <div class="col-lg-12">
                                 <div class="box">
+                                    <b>Número de denúncias:</b> <span class="badge">@dica.getNumeroDenuncias()</span><br><br>
                                     @if(!dica.recebeuDenunciaDe(usuario.getLogin())){
                                         <header>
                                             <h5><i class="fa fa-thumbs-o-down"></i> Denunciar esta dica</h5>
@@ -330,7 +333,7 @@
                                                 <div class="form-group">
                                                     <input type="hidden" name="loginUser" value=@usuario.getLogin>
                                                     <input type="hidden" name="idDica" value="@dica.getId">
-                                                    <label for="limiter" class="control-label col-lg-4"><button type="submit" class="btn btn-danger">Denunciar</button></label>
+                                                    &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-danger">Denunciar</button>
                                                 </div>
                                             </form>
                                         </div>
