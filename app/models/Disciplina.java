@@ -70,6 +70,14 @@ public class Disciplina {
         return metadicas.size();
     }
 
+    public int getNumeroMetaDicasVisiveis() {
+        int contador = 0;
+        for(MetaDica metaDica: metadicas) {
+            if(metaDica.isVisivel()) contador += 1;
+        }
+        return contador;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

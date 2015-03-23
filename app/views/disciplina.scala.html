@@ -1,4 +1,4 @@
-@(usuario: Usuario, disciplinas: List[Disciplina], disc: Disciplina, metadicas: List[MetaDica], dicasAdicionar: List[DicaSimples], mensagem: String)
+@(usuario: Usuario, disciplinas: List[Disciplina], disc: Disciplina, metadicas: List[MetaDica], dicasSimples: List[DicaSimples], mensagem: String)
 
 <!doctype html>
 <html class="no-js">
@@ -150,7 +150,7 @@
                         <div class="col-lg-12">
 
                             <h2 id="building">@disc.getNome()</h2>
-                            @if(disc.getNumeroMetaDicas > 0) {
+                            @if(disc.getNumeroMetaDicasVisiveis > 0) {
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="box dark">
@@ -220,8 +220,8 @@
                                                         <label class="control-label col-lg-4">Dicas simples</label>
                                                         <div class="col-lg-8">
                                                             <select id="selectDicaSimples" name="selectDicaSimples" data-placeholder="Dicas da disciplina" multiple class="form-control chzn-select">
-                                                                @if(dicasAdicionar.size > 0) {
-                                                                    @for(opcaoDica <- dicasAdicionar) {
+                                                                @if(dicasSimples.size > 0) {
+                                                                    @for(opcaoDica <- dicasSimples) {
                                                                         <option value=@opcaoDica.getId >@opcaoDica.getTitulo</option>
                                                                     }
                                                                 } else {

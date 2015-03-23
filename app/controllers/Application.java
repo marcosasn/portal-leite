@@ -32,17 +32,26 @@ public class Application extends Controller {
         Disciplina disciplinaAtual = DAO.findByEntityId(Disciplina.class, id);
         List<MetaDica> listaMetaDicas = disciplinaAtual.getMetadicas();
 
-        List<DicaSimples> listaAdicionarDicaSimples = new ArrayList<DicaSimples>();
+        List<MetaDica> listaMetaDicasVisiveis = new ArrayList<MetaDica>();
+        for(MetaDica metaDicaDaLista: listaMetaDicas) {
+            if(metaDicaDaLista.isVisivel()) {
+                listaMetaDicasVisiveis.add(metaDicaDaLista);
+            }
+        }
+
+        List<DicaSimples> listaDicaSimplesVisiveis = new ArrayList<DicaSimples>();
 
         for(Tema temaDisciplina: disciplinaAtual.getTemas()) {
             for(IDica dicaTemaDisciplina: temaDisciplina.getDicas()) {
                 if(dicaTemaDisciplina instanceof DicaSimples) {
-                    listaAdicionarDicaSimples.add((DicaSimples) dicaTemaDisciplina);
+                    if(dicaTemaDisciplina.isVisivel()) {
+                        listaDicaSimplesVisiveis.add((DicaSimples) dicaTemaDisciplina);
+                    }
                 }
             }
         }
 
-        return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicas, listaAdicionarDicaSimples, ""));
+        return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicasVisiveis, listaDicaSimplesVisiveis, ""));
     }
 
     @Transactional

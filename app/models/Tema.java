@@ -52,6 +52,14 @@ public class Tema {
         return dicas.size();
     }
 
+    public int getNumeroDicasVisiveis() {
+        int contador = 0;
+        for (IDica dica: dicas) {
+            if(dica.isVisivel()) contador += 1;
+        }
+        return contador;
+    }
+
     public void addAvaliacao(String login, Integer avaliacao) {
         avaliacoes.put(login, avaliacao);
     }

@@ -115,29 +115,38 @@ public class IDicaController extends Controller {
         Disciplina disciplinaAtual = DAO.findByEntityId(Disciplina.class, Long.parseLong(idDisciplina));
         List<MetaDica> listaMetaDicas = disciplinaAtual.getMetadicas();
 
-        List<DicaSimples> listaAdicionarDicaSimples = new ArrayList<DicaSimples>();
+        List<MetaDica> listaMetaDicasVisiveis = new ArrayList<MetaDica>();
+        for(MetaDica metaDicaDaLista: listaMetaDicas) {
+            if(metaDicaDaLista.isVisivel()) {
+                listaMetaDicasVisiveis.add(metaDicaDaLista);
+            }
+        }
+
+        List<DicaSimples> listaDicaSimplesVisiveis = new ArrayList<DicaSimples>();
 
         for(Tema temaDisciplina: disciplinaAtual.getTemas()) {
             for(IDica dicaTemaDisciplina: temaDisciplina.getDicas()) {
                 if(dicaTemaDisciplina instanceof DicaSimples) {
-                    listaAdicionarDicaSimples.add((DicaSimples) dicaTemaDisciplina);
+                    if(dicaTemaDisciplina.isVisivel()) {
+                        listaDicaSimplesVisiveis.add((DicaSimples) dicaTemaDisciplina);
+                    }
                 }
             }
         }
 
         if (requestData.hasErrors()) {
-            return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicas, listaAdicionarDicaSimples, ""));
+            return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicasVisiveis, listaDicaSimplesVisiveis, ""));
         }
         if(vazio(titulo)) {
-            return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicas, listaAdicionarDicaSimples, "Digite um título para sua meta-dica"));
+            return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicasVisiveis, listaDicaSimplesVisiveis, "Digite um título para sua meta-dica"));
         }
 
         if(arrayVazio(dicasSimplesSelecionadas) && arrayVazio(metaDicasSelecionadas)) {
-            return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicas, listaAdicionarDicaSimples, "Escolha pelo menos uma dica ou meta-dica para formar sua meta-dica."));
+            return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicasVisiveis, listaDicaSimplesVisiveis, "Escolha pelo menos uma dica ou meta-dica para formar sua meta-dica."));
         }
 
         if(vazio(comentario)) {
-            return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicas, listaAdicionarDicaSimples, "Faça um comentário sobre sua meta-dica."));
+            return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicasVisiveis, listaDicaSimplesVisiveis, "Faça um comentário sobre sua meta-dica."));
         }
 
         Usuario autor = (Usuario) DAO.findByAttributeName("Usuario", "login", loginUser).get(0);
@@ -163,7 +172,16 @@ public class IDicaController extends Controller {
         disciplinaAtual.addMetaDica(novaMetaDica);
         DAO.merge(disciplinaAtual);
 
-        return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicas, listaAdicionarDicaSimples, "Meta-dica para esta disciplina criada com sucesso."));
+        // Atualizando a lista de meta-dicas visíveis para serem apresentadas na página após a adição de uma nova meta-dica
+        listaMetaDicas = disciplinaAtual.getMetadicas();
+        listaMetaDicasVisiveis = new ArrayList<MetaDica>();
+        for(MetaDica metaDicaDaLista: listaMetaDicas) {
+            if(metaDicaDaLista.isVisivel()) {
+                listaMetaDicasVisiveis.add(metaDicaDaLista);
+            }
+        }
+
+        return ok(disciplina.render(usuarioCorrente, disciplinas, disciplinaAtual, listaMetaDicasVisiveis, listaDicaSimplesVisiveis, "Meta-dica para esta disciplina criada com sucesso."));
 
     }
 
