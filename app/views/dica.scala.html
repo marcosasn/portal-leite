@@ -225,7 +225,7 @@
                                         <h5><i class="fa fa fa-bar-chart-o"></i> Estatísticas</h5>
                                     </header>
                                     <div class="body">
-                                        <form action="@routes.Application.adicionaConcordancia()" method="post">
+                                        <form action="@routes.VotoController.adicionaConcordancia()" method="post">
                                         <div class="form-group">
                                             <div class="col-lg-24">
                                             @if(!dica.usuarioAtualVotouNestaDica(usuario)) {
@@ -251,7 +251,7 @@
                                             <div id="Discordar" class="tab-pane">
 
                                                 <div class="col-lg-8">
-                                                    <form action="@routes.Application.adicionaDiscordancia()" method="post">
+                                                    <form action="@routes.VotoController.adicionaDiscordancia()" method="post">
                                                 <div class="form-group">
 
                                                     <div class="col-lg-8">
@@ -325,7 +325,7 @@
                                             <h5><i class="fa fa-thumbs-o-down"></i> Denunciar esta dica</h5>
                                         </header>
                                         <div class="body">
-                                            <form class="form-horizontal" action="@routes.Application.postarDenuncia()" method="post">
+                                            <form class="form-horizontal" action="@routes.IDicaController.postarDenuncia()" method="post">
                                                 <div class="form-group">
                                                     <input type="hidden" name="loginUser" value=@usuario.getLogin>
                                                     <input type="hidden" name="idDica" value="@dica.getId">
