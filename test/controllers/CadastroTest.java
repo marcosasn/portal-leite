@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import models.dao.GenericDAO;
 import org.junit.After;

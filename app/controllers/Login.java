@@ -47,8 +47,6 @@ public class Login extends Controller {
             session().clear();
             session("login", user.getLogin());
 
-            Usuario usuarioCorrente = (Usuario) DAO.findByAttributeName("Usuario", "login", session("login")).get(0);
-
             return redirect(routes.Application.index());
         }
     }
