@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.common.collect.ImmutableMap;
 import models.dao.GenericDAO;
 import org.junit.After;
 import org.junit.Before;
@@ -13,6 +14,7 @@ import scala.Option;
 import javax.persistence.EntityManager;
 import models.Usuario;
 import static org.fest.assertions.Assertions.*;
+import static play.test.Helpers.*;
 import java.util.List;
 
 public class CadastroTest {
@@ -57,6 +59,20 @@ public class CadastroTest {
         dao.persist(novousuario3);
         usuarios = dao.findAllByClassName(Usuario.class.getName());
         assertThat(usuarios.size()).isEqualTo(4);
+    }
+
+    @Test
+    public void deveCadastrarNaInterface() {
+        //Usuário é cadastrado
+        result = callAction(
+                controllers.routes.ref.Cadastro.registrar(),
+                fakeRequest().withFormUrlEncodedBody(ImmutableMap.of(
+                        "nome", "Adolfo",
+                        "login", "adolfo06",
+                        "senha", "123"))
+        );
+
+        assertThat(contentAsString(result)).contains("Usuário cadastrado com sucesso!");
     }
 
     @Before

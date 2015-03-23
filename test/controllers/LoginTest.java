@@ -64,6 +64,8 @@ public class LoginTest {
                         "senha", "123"))
         );
 
+        assertThat(session(result).get("login")).isEqualTo("adolfo06");
+
         // Usuário faz logout
         result = callAction(controllers.routes.ref.Login.logout(),fakeRequest());
 
@@ -73,7 +75,7 @@ public class LoginTest {
     @Test
     public void naoDeveLogarUsuariosNaoCadastrados() {
 
-        // Usuário faz login
+        // Usuário faz login, mas não tem cadastro
         result = callAction(
                 controllers.routes.ref.Login.logar(),
                 fakeRequest().withFormUrlEncodedBody(ImmutableMap.of(
