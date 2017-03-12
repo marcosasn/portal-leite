@@ -1,0 +1,15 @@
+models.Concordancia
+models.DicaComoNaoTerDificuldade
+models.DicaConselho
+models.DicaDisciplinasAnteriores
+models.DicaMaterialUtil
+models.DicaSimples
+models.Disciplina
+models.Discordancia
+models.IDica$StatusAberturaParaVotos
+models.IDica$StatusVisualizacao
+models.IDica
+models.MetaDica
+models.Tema
+models.Usuario
+models.Voto

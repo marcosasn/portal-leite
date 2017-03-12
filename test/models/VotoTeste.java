@@ -1,4 +1,4 @@
-package test.models;
+package models;
 
 import models.*;
 import models.dao.GenericDAO;

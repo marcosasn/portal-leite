@@ -1,0 +1,5 @@
+controllers.IDicaController
+controllers.Login
+controllers.Secured
+controllers.TemaController
+controllers.VotoController
